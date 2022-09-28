@@ -26,4 +26,12 @@ mv genomes/human_CR_3.0.0/labshare.cshl.edu/shares/dobin/dobin/STARsolo/Preprint
 samtools faidx genomes/human_CR_3.0.0/genome.fa
 
 ./exe/gffread -w genomes/human_CR_3.0.0/transcripts.fa -g genomes/human_CR_3.0.0/genome.fa genomes/human_CR_3.0.0/annotations.gtf
+
+awk '$3=="transcript" {gene=$0; gsub(/.*gene_id "/,"",gene); gsub(/".*/,"",gene); tr=$0; gsub(/.*transcript_id "/,"",tr); gsub(/".*/,"",tr); print tr "\t" gene }' \
+	    genomes/human_CR_3.0.0/annotations.gtf > genomes/human_CR_3.0.0/transcript_to_gene.txt && \
+	awk '{print $1 "\t" $2}' genomes/human_CR_3.0.0/transcript_to_gene.txt > genomes/human_CR_3.0.0/transcript_to_gene.2col.txt
+awk '{if (!($2 in G)) print $2; G[$2]=0}'  genomes/human_CR_3.0.0/transcript_to_gene.txt > genomes/human_CR_3.0.0/genes.tsv
+
+aa=$(pwd|sed 's/\//\\\//g') && cat Mf.common|sed 's/\/scratch\/dobin\/STAR\/STARsoloManuscript\//'"$aa"'\//' > Mf.common2
+mv Mf.common2 Mf.common
 </pre>
