@@ -12,6 +12,8 @@ make -C samples
 
 make -C exe # Gives errors: "make: *** [Makefile:26: kbpy_0.25.0] Error 1" but oh well
 
+make -C exe gffread # Make sure we don't skip over installing gffread
+
 cat genomes/Makefile|sed 's/Genomes/genomes/' > genomes/Makefile2
 mv genomes/Makefile2 genomes/Makefile
 make -C genomes # Needed to edit Makefile (to make Genomes lower-case) above otherwise the files can't be found
