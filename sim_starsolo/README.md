@@ -39,4 +39,8 @@ cat data/Makefile|sed 's/Data/data/' > data/Makefile2
 mv data/Makefile2 data/Makefile
 
 make -C data
+
+rm -f ./genomes/human_CR_3.0.0/genome_transcripts*
+
+make -C sims
 </pre>
