@@ -25,4 +25,5 @@ mv genomes/human_CR_3.0.0/labshare.cshl.edu/shares/dobin/dobin/STARsolo/Preprint
 
 samtools faidx genomes/human_CR_3.0.0/genome.fa
 
+./exe/gffread -w genomes/human_CR_3.0.0/transcripts.fa -g genomes/human_CR_3.0.0/genome.fa genomes/human_CR_3.0.0/annotations.gtf
 </pre>
