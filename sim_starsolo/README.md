@@ -2,7 +2,7 @@
 
 On tolva, everything is downloaded into: /home/dsullivan/benchmarking/starsolo
 
-## Download and run simulation
+## Download and run simulation (Sep. 27, 2022)
 
 <pre>git clone https://github.com/dobinlab/STARsoloManuscript
 cd STARsoloManuscript
