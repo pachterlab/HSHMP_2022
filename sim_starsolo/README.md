@@ -34,4 +34,9 @@ awk '{if (!($2 in G)) print $2; G[$2]=0}'  genomes/human_CR_3.0.0/transcript_to_
 
 aa=$(pwd|sed 's/\//\\\//g') && cat Mf.common|sed 's/\/scratch\/dobin\/STAR\/STARsoloManuscript\//'"$aa"'\//' > Mf.common2
 mv Mf.common2 Mf.common
+
+cat data/Makefile|sed 's/Data/data/' > data/Makefile2
+mv data/Makefile2 data/Makefile
+
+make -C data
 </pre>
