@@ -6,3 +6,12 @@ Cell Ranger v7.0.1 (Released August 18, 2022. Downloaded October 7, 2022)
 
 salmon v1.9.0 (Released Jun 23, 2022. Download Oct 11, 2022) # Downloaded via: wget https://github.com/COMBINE-lab/salmon/releases/download/v1.9.0/salmon-1.9.0_linux_x86_64.tar.gz && tar -xzvf salmon-1.9.0_linux_x86_64.tar.gz
 /home/dsullivan/salmon-1.9.0_linux_x86_64/bin/salmon
+
+alevin-fry 0.8.0 (Released Oct 11, 2022. Download Oct 11, 2022; installation instructions below)
+/home/dsullivan/.cargo/bin/alevin-fry
+
+Install rust and alevin-fry:
+export RUSTUP_HOME=./.rustup/
+export CARGO_HOME=./.cargo/
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+./.cargo/bin/cargo install alevin-fry
