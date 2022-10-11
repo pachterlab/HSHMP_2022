@@ -68,6 +68,8 @@ def process_gene(gene, scaffolds, out, union, diff):
     for i, iv in enumerate(itrs):
         out.write(f'>{gene["name"]}.{"union." if union else ""}{"exondiff." if diff else""}tr.{i}\n')
         seq = sequence[iv[0]:iv[1]]
+        if gene['strand'] == '-':
+            seq = reverse_complement(seq)
         out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
         out.write('\n')
 
@@ -103,7 +105,13 @@ def parse_gtf(path, scaffolds, out, union, diff):
                     'strand': fields['strand']
                 }
 
-            if fields['feature'] in ['exon', 'UTR', 'stop_codon']:
+            if fields['feature'] in ['exon',
+                                     'UTR',
+                                     'start_codon',
+                                     'stop_codon',
+                                     'five_prime_utr',
+                                     'three_prime_utr',
+                                     'CDS']:
                 tr = fields['rest']['transcript_id']
                 if tr not in genes[gene_id]['trs']:
                     genes[gene_id]['trs'][tr] = {
