@@ -17,7 +17,7 @@ sims_run:
 	$(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo_OnlyExonicReads   threadRun=20/run1
 
 ############################################################ Versions
-alevin-fry := salmon-1.9.0
+alevin-fry := salmon-alevin-fry_1.9.0_0.8.0
 kbpy       := kallisto_0.49.0
 STAR       := STAR_2.7.9a
 CellRanger6 := CellRanger_6.1.6
