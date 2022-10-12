@@ -62,4 +62,4 @@ gtf_file="genomes/human_CR_3.0.0/annotation.gtf"</pre>
 
 <pre>out_dir="genomes/index/kallisto_0.49.0/standard_1"
 mkdir -p $out_dir
-kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file</pre>
+kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file</pre>
