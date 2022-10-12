@@ -21,3 +21,6 @@ export RUSTUP_HOME=./.rustup/
 export CARGO_HOME=./.cargo/
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ./.cargo/bin/cargo install alevin-fry
+
+kbpy installation:
+pip install kb-python
