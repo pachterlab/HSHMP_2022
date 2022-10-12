@@ -27,9 +27,9 @@ CellRanger7 := CellRanger_7.0.1
 # Gene: standard gene expression
 
 All_GeneFull_Real:   \
-                     GeneFull/kbpy \
                      GeneFull/STAR_CR4 \
-                     # GeneFull/CellRanger \
+                     GeneFull/CellRanger6 \
+                     GeneFull/CellRanger7
 	
 All_Gene_Sims: Gene/STAR_sims \
                Gene/kbpy \
@@ -39,7 +39,8 @@ All_Gene_Real:  \
                 Gene/kbpy \
                 Gene/alevin-fry \
                 Gene/STAR_CR4 \
-                Gene/CellRanger
+                Gene/CellRanger6 \
+                Gene/CellRanger7
 
 Gene/CellRanger6: 
 	make -f Mf.count count/$(CellRanger6)/$(genome)/standard/default/$(sample)/$(threadRun)/CO
@@ -67,9 +68,8 @@ GeneFull/STAR_CR4:
 Gene/kbpy:
 	make -f Mf.count count/$(kbpy)/$(genome)/standard_1/default/$(sample)/$(threadRun)/CO
 	make -f Mf.count count/$(kbpy)/$(genome)/standard_1/mult/$(sample)/$(threadRun)/CO
-
-GeneFull/kbpy:
 	make -f Mf.count count/$(kbpy)/$(genome)/nucleus_1/default/$(sample)/$(threadRun)/CO
+	# TODO: Add more kallisto configurations here
 
 Gene/alevin-fry:
 	make -f Mf.count count/$(alevin-fry)/$(genome)/standard/sketch_rad/$(sample)/$(threadRun)/CO afGplOpt=knee
