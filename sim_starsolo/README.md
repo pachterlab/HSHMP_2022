@@ -58,7 +58,7 @@ ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
 <pre>genome_file="genomes/human_CR_3.0.0/genome.fa"
 gtf_file="genomes/human_CR_3.0.0/annotation.gtf"</pre>
 
-## kallisto (TODO: Create index through kb)
+## kallisto (kb-python)
 
 <pre>out_dir="genomes/index/kallisto_0.49.0/standard_1"
-exe/kallisto_0.49.0 index -i $out_dir/index.idx $genome_file</pre>
+kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file</pre>
