@@ -1,0 +1,48 @@
+include Mf.common
+include $(dd)/Mf.pars
+
+.SECONDARY:
+
+.PHONY:
+all:
+	echo No default target, please specify one.
+
+######################################################### common definitions
+define PREP_
+	date
+endef
+define PREP_sleep
+	date
+	sleep 900
+	date
+endef
+define PREP_memUsage
+	date
+	sleep 20
+	$(dd)/scripts/memUsage.sh $(processName) &> $(@D)/mem.log &
+endef
+
+#sleep 300
+
+######################################################### kb counting
+count/kallisto_%: processName:=kb
+
+count/kallisto_%/CO:
+	$(PREP_$(PREPoption))
+	'rm' -rf $(@D) && mkdir -p $(@D) && cd $(@D) &&\
+	$(COUNT_$(tool))
+
+define kbPar_mult =
+	--mm
+endef
+
+define COUNT_kallisto_0.49.0 =
+	
+	$(timer) kb count -t $(threads) -x $(tech)V$(techV) --workflow $(genomeT1) \
+                  -i `ls -m $(refDir)/index* | tr -d ' \n'` -g $(refDir)/g -c1 $(refDir)/c1 -c2 $(refDir)/c2 -o ./ \
+                  `paste <(ls $(sampleDir)/*_R1*) <(ls $(sampleDir)/*_R2*)` \
+		  $(kbPar_$(toolP)) >& log && \
+	echo Success > CO
+endef
+
+
