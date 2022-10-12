@@ -53,3 +53,12 @@ ln -s /home/kristjan/cellranger/cellranger-7.0.1/cellranger exe/CellRanger_7.0.1
 ln -s /home/dsullivan/salmon-1.9.0_linux_x86_64/bin/salmon exe/salmon_1.9.0
 ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
 
+# Create indices
+
+<pre>genome_file="genomes/human_CR_3.0.0/genome.fa"
+gtf_file="genomes/human_CR_3.0.0/annotation.gtf"</pre>
+
+## kallisto (TODO: Create index through kb)
+
+<pre>out_dir="genomes/index/kallisto_0.49.0/standard_1"
+exe/kallisto_0.49.0 index -i $out_dir/index.idx $genome_file</pre>
