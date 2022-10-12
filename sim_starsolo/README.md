@@ -55,12 +55,13 @@ ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
 
 # Create indices
 
-<pre>genome_file="genomes/human_CR_3.0.0/genome.fa"
-gtf_file="genomes/human_CR_3.0.0/annotations.gtf"</pre>
+<pre>genome_name="human_CR_3.0.0"
+genome_file="genomes/$genome_name/genome.fa"
+gtf_file="genomes/$genome_name/annotations.gtf"</pre>
 
 ## kallisto (kb-python)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/standard_1"
+<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_1"
 mkdir -p $out_dir
 kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 exe/kallisto_0.49.0 index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!
