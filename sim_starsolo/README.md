@@ -77,3 +77,7 @@ Clear simulations:
 Run on real data:
 
 <pre>make real</pre>
+
+Run on simulated data:
+
+<pre>make sims_run</pre>
