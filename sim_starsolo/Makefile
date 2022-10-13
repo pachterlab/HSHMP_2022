@@ -13,8 +13,8 @@ real:
 
 sims_run:
 	$(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo    threadRun=20/run1
-	$(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes   threadRun=20/run1
-	$(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo_OnlyExonicReads   threadRun=20/run1
+	# TODO: $(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes   threadRun=20/run1
+	# TODO: $(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo_OnlyExonicReads   threadRun=20/run1
 
 ############################################################ Versions
 alevin-fry := salmon-alevin-fry_1.9.0_0.8.0
@@ -33,7 +33,7 @@ All_GeneFull_Real:   \
 	
 All_Gene_Sims: Gene/STAR_sims \
                Gene/kbpy \
-               Gene/alevin-fry
+               #TODO: Gene/alevin-fry
 
 All_Gene_Real:  \
                 Gene/kbpy \
@@ -75,7 +75,7 @@ Gene/alevin-fry:
 	make -f Mf.count count/$(alevin-fry)/$(genome)/standard/sketch_rad/$(sample)/$(threadRun)/CO afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/standard/rad/$(sample)/$(threadRun)/CO        afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/decoyFull/rad/$(sample)/$(threadRun)/CO       afGplOpt=knee
-	make -f Mf.count count/$(alevin-fry)/$(genome)/splici/rad/$(sample)/$(threadRun)/CO          afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/decoyPartial/rad/$(sample)/$(threadRun)/CO    afGplOpt=knee
+	# TODO: make -f Mf.count count/$(alevin-fry)/$(genome)/splici/rad/$(sample)/$(threadRun)/CO          afGplOpt=knee
 
 
