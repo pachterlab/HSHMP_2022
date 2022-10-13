@@ -32,7 +32,7 @@ define kbPar_mult =
 endef
 
 define COUNT_kallisto_0.49.0 =
-       $(timer) kb count --kallisto $(dd)/exe/kallisto_0.49.0 -t $(threads) -x $(tech)V$(techV) --workflow $(genomeT1) \
+       $(timer) kb count --kallisto $(dd)/exe/kallisto_0.49.0 --bustools $(dd)/exe/bustools_0.41.1 -t $(threads) -x $(tech)V$(techV) --workflow $(genomeT1) \
                   -i `ls -m $(refDir)/index* | tr -d ' \n'` -g $(refDir)/g -c1 $(refDir)/c1 -c2 $(refDir)/c2 -o ./ \
                   `paste <(ls $(sampleDir)/*_R1*) <(ls $(sampleDir)/*_R2*)` \
                  $(kbPar_$(toolP)) >& log && \
