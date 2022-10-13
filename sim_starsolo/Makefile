@@ -32,7 +32,7 @@ All_GeneFull_Real:   \
                      GeneFull/CellRanger7
 	
 All_Gene_Sims: Gene/kbpy \
-               #TODO: Gene/STAR_sims \
+               Gene/STAR_sims \
                #TODO: Gene/alevin-fry
 
 All_Gene_Real:  \
