@@ -2,6 +2,8 @@
 
 On tolva, everything is downloaded into: /home/dsullivan/benchmarking/starsolo
 
+Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here.
+
 ## Download and run simulation (Sep. 27, 2022)
 
 <pre>git clone https://github.com/dobinlab/STARsoloManuscript
@@ -58,7 +60,8 @@ ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
 
 <pre>genome_name="human_CR_3.0.0"
 genome_file="genomes/$genome_name/genome.fa"
-gtf_file="genomes/$genome_name/annotations.gtf"</pre>
+gtf_file="genomes/$genome_name/annotations.gtf"
+n_threads="20"</pre>
 
 ## kallisto (kb-python)
 
@@ -67,6 +70,14 @@ mkdir -p $out_dir
 kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 exe/kallisto_0.49.0 index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!
 </pre>
+
+## STAR
+
+<pre>out_dir="genomes/index/STAR_2.7.9a/$genome_name"
+mkdir -p $out_dir/fullSA
+exe/STAR_2.7.9a --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/fullSA --genomeFastaFiles $genome_file --sjdbGTFfile $gtf_file
+mkdir -p $out_dir/sparseSA3
+exe/STAR_2.7.9a --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/sparseSA3 --genomeSAsparseD 3 --genomeFastaFiles $genome_file --sjdbGTFfile $gtf_file</pre>
 
 # Run simulations
 
