@@ -9,7 +9,7 @@ all: real sims_run
 
 real:
 	$(MAKE) All_Gene_Real       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k   threadRun=20/run1
-	$(MAKE) All_GeneFull_Real   genome=human_CR_3.0.0   sample=10X/3/pbmc_5k   threadRun=20/run1
+	# TODO:	$(MAKE) All_GeneFull_Real   genome=human_CR_3.0.0   sample=10X/3/pbmc_5k   threadRun=20/run1
 
 sims_run:
 	$(MAKE) All_Gene_Sims       genome=human_CR_3.0.0   sample=10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo    threadRun=20/run1
@@ -37,10 +37,10 @@ All_Gene_Sims: Gene/STAR_sims \
 
 All_Gene_Real:  \
                 Gene/kbpy \
-                Gene/alevin-fry \
-                Gene/STAR_CR4 \
-                Gene/CellRanger6 \
-                Gene/CellRanger7
+		#TODO : Gene/alevin-fry \
+		#TODO :Gene/STAR_CR4 \
+		#TODO: Gene/CellRanger6 \
+		#TODO: Gene/CellRanger7
 
 Gene/CellRanger6: 
 	make -f Mf.count count/$(CellRanger6)/$(genome)/standard/default/$(sample)/$(threadRun)/CO
@@ -67,8 +67,8 @@ GeneFull/STAR_CR4:
 
 Gene/kbpy:
 	make -f Mf.count count/$(kbpy)/$(genome)/standard_1/default/$(sample)/$(threadRun)/CO
-	make -f Mf.count count/$(kbpy)/$(genome)/standard_1/mult/$(sample)/$(threadRun)/CO
-	make -f Mf.count count/$(kbpy)/$(genome)/nucleus_1/default/$(sample)/$(threadRun)/CO
+	#TODO make -f Mf.count count/$(kbpy)/$(genome)/standard_1/mult/$(sample)/$(threadRun)/CO
+	#TODO :make -f Mf.count count/$(kbpy)/$(genome)/nucleus_1/default/$(sample)/$(threadRun)/CO
 	# TODO: Add more kallisto configurations here
 
 Gene/alevin-fry:
@@ -77,4 +77,5 @@ Gene/alevin-fry:
 	make -f Mf.count count/$(alevin-fry)/$(genome)/decoyFull/rad/$(sample)/$(threadRun)/CO       afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/splici/rad/$(sample)/$(threadRun)/CO          afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/decoyPartial/rad/$(sample)/$(threadRun)/CO    afGplOpt=knee
+
 
