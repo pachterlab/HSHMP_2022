@@ -4,6 +4,9 @@ kallisto v0.49.0 (newest version of kallisto):
 kallisto v0.48.0 (previous version of kallisto):
 /home/dsullivan/kallisto/build/src/kallisto
 
+bustools v0.41.0* (version of bustools with a fix in bustools_inspect [submitted as pull request])
+/home/dsullivan/bustools/build/src/bustools
+
 Cell Ranger v6.1.6 (Released October 25, 2021. Downloaded October 7, 2022)
 /home/kristjan/cellranger/cellranger-6.1.2/cellranger
 
