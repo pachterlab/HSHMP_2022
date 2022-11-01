@@ -71,6 +71,15 @@ kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard 
 exe/kallisto_0.49.0 index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!
 </pre>
 
+### off-list (in-progress)
+
+<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/offlist_1"
+mkdir -p $out_dir
+cp ../extract_introns/* ./
+./extract_introns.py --gtf <(cat $gtf_file|gzip) --fa <(cat $genome_file|gzip) --out $out_dir/introns.fa --union --diff
+</pre>
+
+
 ## STAR
 
 <pre>out_dir="genomes/index/STAR_2.7.9a/$genome_name"
