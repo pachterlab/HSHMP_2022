@@ -104,17 +104,12 @@ Run python script with 7 arguments: 1) truth matrix, 2) truth genes list, 3) tru
 
 The output file will be formatted as follows:
 
-First line of output file is:
-
-"# num_barcodes_in_intersection num_barcodes_in_simulation,num_barcodes_in_program"
-
-Second line of output file is:
-
-"# num_genes_in_intersection num_genes_in_simulation,num_genes_in_program"
-
-Rest of output file repeats as the following 5 lines:
-
-Five lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
+* First line of output file is:
+* * "# num_barcodes_in_intersection num_barcodes_in_simulation,num_barcodes_in_program"
+* Second line of output file is:
+* * "# num_genes_in_intersection num_genes_in_simulation,num_genes_in_program"
+* Rest of output file repeats as the following 5 lines:
+* * Five lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
 
 Here's an example of the first 17 lines of the output file:
 
