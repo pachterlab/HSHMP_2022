@@ -57,8 +57,8 @@ n = 0
 outfile = open(outfilename, "w")
 # First line of output file is: "# num_barcodes_in_intersection num_barcodes_in_simulation,num_barcodes_in_program"
 # Second line of output file is: "# num_genes_in_intersection num_genes_in_simulation,num_genes_in_program"
-outfile.write("# " + len(intersection_barcodes) + " " + len(barcodes) + "," + len(barcodes_) + "\n")
-outfile.write("# " + len(intersection_genes) + " " + len(genes) + "," + len(genes_) + "\n")
+outfile.write("# " + str(len(intersection_barcodes)) + " " + str(len(barcodes)) + "," + str(len(barcodes_)) + "\n")
+outfile.write("# " + str(len(intersection_genes)) + " " + str(len(genes)) + "," + str(len(genes_)) + "\n")
 # Rest of output file repeats as the following 5 lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
 for i in range(len(intersection_barcodes)):
     x = [kallisto_data_csr[bc2[i],genes2].toarray()[0], sparse_mtx_sim_data[bc1[i],genes1].toarray()[0]]
