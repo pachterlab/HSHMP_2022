@@ -61,7 +61,7 @@ outfile.write("# " + str(len(intersection_barcodes)) + " " + str(len(barcodes)) 
 outfile.write("# " + str(len(intersection_genes)) + " " + str(len(genes)) + "," + str(len(genes_)) + "\n")
 # Rest of output file repeats as the following 5 lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
 for i in range(len(intersection_barcodes)):
-    x = [kallisto_data_csr[bc2[i],genes2].toarray()[0], sparse_mtx_sim_data[bc1[i],genes1].toarray()[0]]
+    x = [program_data_csr[bc2[i],genes2].toarray()[0], sparse_mtx_sim_data[bc1[i],genes1].toarray()[0]]
     line0 = intersection_barcodes[n]
     n += 1
     where_i = np.where(x[0]+x[1] > 0)[0]
