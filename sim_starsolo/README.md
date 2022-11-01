@@ -114,7 +114,7 @@ Second line of output file is:
 
 Rest of output file repeats as the following 5 lines:
 
-1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
+Five lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
 
 
 
