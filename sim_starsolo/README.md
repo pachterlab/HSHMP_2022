@@ -92,3 +92,19 @@ Run on real data:
 Run on simulated data:
 
 <pre>make sims_run</pre>
+
+# Generate results from simulations
+
+<pre>cp ../comparisons.py ./</pre>
+
+Run python script with 7 arguments: 1) truth matrix, 2) truth genes list, 3) truth barcode list, 4) program matrix, 5) program genes list, 6) program barcodes list, 7) output file name.
+
+
+<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.49.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.49.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.49.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_sim_vs_kallisto.txt</pre>
+
+The output file will be formatted as follows: First line of output file is: "# num_barcodes_in_intersection num_barcodes_in_simulation,num_barcodes_in_program", Second line of output file is: "# num_genes_in_intersection num_genes_in_simulation,num_genes_in_program", Rest of output file repeats as the following 5 lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
+
+
+
+
+
