@@ -116,7 +116,24 @@ Rest of output file repeats as the following 5 lines:
 
 Five lines: 1) barcode, 2) simulation gene counts, 3) program gene counts, 4) false positive gene names w.r.t. simulation, 5) false negative gene names w.r.t. simulation
 
+Here's an example of the first 17 lines of the output file:
+
+<pre># 913780 6794880,913780
+# 33538 33538,33538
+AAACCCAAGAAACACT
+1
+1
 
 
+AAACCCAAGAAACCCA
+1,1
+1,1
+
+
+AAACCCAAGAAACCCG
+1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+ENSG00000072274
+ENSG00000123975</pre>
 
 
