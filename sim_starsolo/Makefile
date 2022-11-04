@@ -67,7 +67,7 @@ GeneFull/STAR_CR4:
 
 Gene/kbpy:
 	make -f Mf.count count/$(kbpy)/$(genome)/standard_1/default/$(sample)/$(threadRun)/CO
-	make -f Mf.count count/$(kbpy)/$(genome)/offlist_1/default/$(sample)/$(threadRun)/CO
+	make -f Mf.count count/$(kbpy)/$(genome)/standard_offlist_1/default/$(sample)/$(threadRun)/CO
 	#TODO make -f Mf.count count/$(kbpy)/$(genome)/standard_1/mult/$(sample)/$(threadRun)/CO
 	#TODO :make -f Mf.count count/$(kbpy)/$(genome)/nucleus_1/default/$(sample)/$(threadRun)/CO
 	# TODO: Add more kallisto configurations here
