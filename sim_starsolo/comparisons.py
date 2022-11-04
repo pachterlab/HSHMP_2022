@@ -73,6 +73,6 @@ for i in range(len(intersection_barcodes)):
     line4 = (",".join(intersection_genes[where_fn]))
     outfile.write(line0 + "\n" + line1 + "\n" + line2 + "\n" + line3 + "\n" + line4 + "\n")
     if n % 10000 == 0:
-        print("Processed: " + n + " out of " + len(intersection_barcodes) + " barcodes")
+        print("Processed: " + str(n) + " out of " + str(len(intersection_barcodes)) + " barcodes")
 outfile.close()
 print("DONE")
