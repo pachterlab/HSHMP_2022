@@ -21,6 +21,13 @@ program_barcodes_standard = sys.argv[6]
 
 outfilename = sys.argv[7]
 
+# Transpose?
+
+mtx_transpose=False
+if len(sys.argv) > 8:
+    if sys.argv[8] == "--transpose":
+        mtx_transpose=True
+
 # Extract genes and barcodes lists
 
 genes = np.array([line.rstrip().split('.', 1)[0] for line in open(sim_truth_genes)])
@@ -46,6 +53,8 @@ genes2 = sorter[np.searchsorted(genes_, intersection_genes, sorter=sorter)]
 
 program_data = scipy.io.mmread(program_mtx_standard)
 program_data_csr = program_data.tocsr()
+if mtx_transpose:
+    program_data_csr = program_data_csr.transpose()
 sim_data = np.array([])
 with open(sim_truth_mtx_MultiGeneNo, 'r') as f:
     sim_data = np.array([[int(num) for num in line.split(' ')] for line in f])
