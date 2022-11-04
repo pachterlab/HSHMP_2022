@@ -25,7 +25,7 @@ outfilename = sys.argv[7]
 
 genes = np.array([line.rstrip().split('.', 1)[0] for line in open(sim_truth_genes)])
 barcodes = np.array([line.rstrip() for line in open(sim_truth_barcodes)])
-genes_ = np.array([line.rstrip().split('.', 1)[0] for line in open(program_gene_standard)])
+genes_ = np.array([line.rstrip().split('.', 1)[0].split(None, 1)[0] for line in open(program_gene_standard)])
 barcodes_ = np.array([line.rstrip() for line in open(program_barcodes_standard)])
 
 # Intersect genes and barcodes lists
