@@ -76,7 +76,9 @@ exe/kallisto_0.49.0 index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS 
 <pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
 mkdir -p $out_dir
 cp ../extract_introns/* ./
-./extract_introns.py --gtf <(cat $gtf_file|gzip) --fa <(cat $genome_file|gzip) --out $out_dir/introns.fa --union --diff
+./extract_introns.py --gtf <(cat $gtf_file|gzip) --fa <(cat $genome_file|gzip) --out $out_dir/introns_.fa --union --diff
+cat $out_dir/introns_.fa|awk 'BEGIN {RS = ">" ; FS = "\n" ; ORS = ""} {if ($2) print ">"$0}' > $out_dir/introns.fa
+# ^TODO: simply have python script discard empty lines in fasta
 exe/kallisto_0.49.0 index -t 4 -b $out_dir/introns.fa -i $out_dir/index.idx genomes/index/kallisto_0.49.0/$genome_name/standard_1/f1
 # ^TODO: REPLACE ABOVE WITH A KB REF COMMAND ONCE WE ALLOW OFFLIST IN KB REF
 cp genomes/index/kallisto_0.49.0/$genome_name/standard_1/g $out_dir/g
