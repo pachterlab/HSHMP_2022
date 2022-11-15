@@ -48,7 +48,7 @@ $kallisto index -t 44 -b ./introns.fa -i $out_dir/index.idx $prev_dir/f1</pre>
 mkdir -p $out_dir
 $kallisto index -t 44 -i $out_dir/index.idx ./introns.fa</pre>
 
-## Lamanno index (previous kallisto version)
+## Lamanno index (previous kallisto version's cDNA+intron index)
 
 <pre>prev_dir="$out_dir"
 out_dir="kallisto_index_lamanno/"
