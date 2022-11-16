@@ -4,7 +4,7 @@
 
 # Clone kallisto-bf report
 
-<pre>git clone -b https://github.com/Yenaled/kallisto-bf.git
+<pre>git clone -b offlist https://github.com/Yenaled/kallisto-bf.git
 cd kallisto-bf/ext/htslib && autoheader && autoconf && cd ../../
 mkdir -p build && cd build
 cmake .. && make && cd ../../</pre>
