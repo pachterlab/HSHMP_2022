@@ -44,18 +44,24 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 ### Run kallisto
 
-#### Ybx3-only index
+#### Myc cdna-only index
 
-<pre>$kallisto index -i $out_dir/$out_dir.idx $out_dir/$out_dir.fa</pre>
-<pre>$kallisto quant -i $out_dir/$out_dir.idx -o $out_dir/quant/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+<pre>$kallisto index -i $out_dir/$out_dir.idx $out_dir/cdna.fa</pre>
+<pre>$kallisto bus -n -i $out_dir/$out_dir.idx -o $out_dir/quant/ $out_dir/reads.fq</pre>
+<pre>$bustools text -pf $out_dir/quant/output.bus</pre>
 
-#### Full index
+(Everything except the intron-only read, named intron, should map)
 
-<pre>$kallisto quant -i kallisto_index_cdna/index.idx -o $out_dir/quant_cdna/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+#### Full cdna index
 
-#### Full index plus offlist
+<pre>$kallisto bus -n -i kallisto_index_cdna/index.idx -o $out_dir/quant_cdna/ $out_dir/reads.fq</pre>
+<pre>$bustools text -pf $out_dir/quant_cdna/output.bus</pre>
 
-<pre>$kallisto quant -i kallisto_index_offlist/index.idx -o $out_dir/quant_offlist/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+(Everything except the intron-only read, named intron, should map)
+
+#### Full cdna index plus offlist
+
+<pre>$kallisto quant -i kallisto_index_offlist/index.idx -o $out_dir/quant_offlist/ --single -l 1 -s 1 --single-overhang $out_dir/reads.fq</pre>
 
 #### Full index plus introns
 
