@@ -3,7 +3,8 @@ Run the bbmap_sims steps first.
 <pre>cd /home/dsullivan/benchmarking/kristjan/</pre>
 
 <pre>kallisto="/home/dsullivan/benchmarking/kristjan/kallisto-bf/build/src/kallisto"
-prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"</pre>
+prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"
+bustools="/home/dsullivan/bustools/build/src/bustools"</pre>
 
 ## YBX3
 
