@@ -42,6 +42,10 @@ TACAGCATTAATCTGGTAATTGATTATTTTAATGTAACCTTGCTAAAGGAGTGATTTCTATTTCCTTTCTTAAAGAGGAG
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads.fq
 </pre>
 
+* Mature: exon1exon2
+* Nascent: exon1intron, intron, intronexon2
+* Ambiguous: exon1, exon2
+
 ### Run kallisto
 
 #### Myc cdna-only index
@@ -61,7 +65,10 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 #### Full cdna index plus offlist
 
-<pre>$kallisto quant -i kallisto_index_offlist/index.idx -o $out_dir/quant_offlist/ --single -l 1 -s 1 --single-overhang $out_dir/reads.fq</pre>
+<pre>$kallisto bus -n -i kallisto_index_offlist/index.idx -o $out_dir/quant_offlist/ $out_dir/reads.fq</pre>
+<pre>$bustools text -pf $out_dir/quant_offlist/output.bus</pre>
+
+(Everything except the intron-only read, named intron, should map)
 
 #### Full index plus introns
 
