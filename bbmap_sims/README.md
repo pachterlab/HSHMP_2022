@@ -22,6 +22,7 @@ Set up paths to kallisto (current version and previous version), genome FASTA fi
 
 <pre>kallisto="/home/dsullivan/benchmarking/kristjan/kallisto-bf/build/src/kallisto"
 prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"
+bustools="/home/dsullivan/bustools/build/src/bustools"
 genome_file="/home/kristjan/kallisto_bf_analysis/hg38_dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"
 gtf_file="/home/kristjan/kallisto_bf_analysis/hg38_dna/Homo_sapiens.GRCh38.104.gtf.gz"</pre>
 
