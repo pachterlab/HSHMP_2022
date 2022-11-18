@@ -2,13 +2,19 @@ Run the bbmap_sims steps first.
 
 <pre>cd /home/dsullivan/benchmarking/kristjan/</pre>
 
+<pre>kallisto="/home/dsullivan/benchmarking/kristjan/kallisto-bf/build/src/kallisto"
+prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"</pre>
+
 ## YBX3
 
-<pre>cat kallisto_index_cdna/f1|grep -A1 "ENST00000228251\|ENST00000279550"|grep -v ^\- > ybx3.fa</pre>
+<pre>out_dir="ybx3"
+mkdir -p $out_dir</pre>
+
+<pre>cat kallisto_index_cdna/f1|grep -A1 "ENST00000228251\|ENST00000279550"|grep -v ^\- > $out_dir/$out_dir.fa</pre>
 
 <pre>gtf_file="/home/kristjan/kallisto_bf_analysis/hg38_dna/Homo_sapiens.GRCh38.104.gtf.gz"
-zcat < $gtf_file|grep ENSG00000060138|grep $'\t'gene$'\t' > ybx3.gtf
-zcat < $gtf_file|grep "ENST00000228251\|ENST00000279550" >> ybx3.gtf</pre>
+zcat < $gtf_file|grep ENSG00000060138|grep $'\t'gene$'\t' > $out_dir/$out_dir.gtf
+zcat < $gtf_file|grep "ENST00000228251\|ENST00000279550" >> $out_dir/$out_dir.gtf</pre>
 
 <pre>echo "CCGCGCTAACCGCCGACCAACCGCCACCGAGGCGCCTGAGCGAGAGCAGAGGAGGAGGAGGCATGAGTGAGGCGGGCGAGGCCACCACCACCACCACCACCACCCTCCCGCAGGCTCCGACGGAGGCGGCCGCCGCGGCTCCCCAGGACC
 +
@@ -34,3 +40,26 @@ GGGAGTCGTTACGCTGCAGATCGGCGCCGTTACAGACGTGGCTACTATGGAAGGCGCCGTGGCCCTCCCCGGAATGCTGG
 +
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" > ybx3.fq
 </pre>
+
+### Run kallisto
+
+#### Ybx3-only index
+
+<pre>$kallisto index -i $out_dir/$out_dir.idx $out_dir/$out_dir.fa</pre>
+<pre>$kallisto quant -i $out_dir/$out_dir.idx -o $out_dir/quant/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+
+#### Full index
+
+<pre>$kallisto quant -i kallisto_index_cdna/index.idx -o $out_dir/quant_cdna/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+
+#### Full index plus offlist
+
+<pre>$kallisto quant -i kallisto_index_offlist/index.idx -o $out_dir/quant_offlist/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+
+#### Full index plus introns
+
+<pre>$kallisto quant -i kallisto_index_introns/index.idx -o $out_dir/quant_introns/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
+
+#### Lamanno index
+
+<pre>$prev_kallisto quant -i kallisto_index_lamanno/index.idx -o $out_dir/quant_lamanno/ --single -l 1 -s 1 --single-overhang $out_dir/$out_dir.fq</pre>
