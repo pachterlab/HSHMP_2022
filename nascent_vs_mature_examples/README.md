@@ -4,7 +4,7 @@ Run the bbmap_sims steps first.
 
 ## YBX3
 
-<pre>cat kallisto_index_cdna/f1|grep -A1 "ENST00000228251\|ENST00000279550"|grep -v ^\- > ybx3.fa<pre>
+<pre>cat kallisto_index_cdna/f1|grep -A1 "ENST00000228251\|ENST00000279550"|grep -v ^\- > ybx3.fa</pre>
 
 <pre>gtf_file="/home/kristjan/kallisto_bf_analysis/hg38_dna/Homo_sapiens.GRCh38.104.gtf.gz"
 zcat < $gtf_file|grep ENSG00000060138|grep $'\t'gene$'\t' > ybx3.gtf
