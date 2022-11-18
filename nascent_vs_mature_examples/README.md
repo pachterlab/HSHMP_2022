@@ -70,10 +70,12 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 (Everything except the intron-only read, named intron, should map)
 
-#### Full index plus introns
+#### Intron-only index
 
 <pre>$kallisto bus -n -i kallisto_index_introns/index.idx -o $out_dir/quant_introns/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_introns/output.bus</pre>
+
+(exon1intron, intron, and intronexon2 should map)
 
 #### Lamanno index
 
