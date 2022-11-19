@@ -60,6 +60,7 @@ ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
 
 <pre>genome_name="human_CR_3.0.0"
 genome_file="genomes/$genome_name/genome.fa"
+transcripts_file="genomes/$genome_name/transcripts.fa"
 gtf_file="genomes/$genome_name/annotations.gtf"
 n_threads="20"</pre>
 
@@ -93,6 +94,17 @@ mkdir -p $out_dir/fullSA
 exe/STAR_2.7.9a --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/fullSA --genomeFastaFiles $genome_file --sjdbGTFfile $gtf_file > $out_dir/fullSA/log.txt 2>&1
 mkdir -p $out_dir/sparseSA3
 exe/STAR_2.7.9a --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/sparseSA3 --genomeSAsparseD 3 --genomeFastaFiles $genome_file --sjdbGTFfile $gtf_file > $out_dir/sparseSA3/log.txt 2>&1</pre>
+
+## salmon
+
+### Full Decoy (TODO: in-progress)
+
+<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
+mkdir -p $out_dir/decoyFull
+awk '$$1~/^>/ {print substr($$1,2)}' $transcripts_file > $out_dir/decoyFull/decoys.txt
+cat $transcripts_file $genome_file > $out_dir/decoyFull/gentrome.fa
+runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $out_dir/decoyFull/gentrome.fa -d $out_dir/decoyFull/decoys.txt --gencode -i $out_dir/decoyFull/index -p $n_threads"
+echo "$runCommand" > $out_dir/decoyFull/log && $runCommand &>> $out_dir/decoyFull/log</pre>
 
 # Run simulations
 
