@@ -155,4 +155,11 @@ AAACCCAAGAAACCCG
 ENSG00000072274
 ENSG00000123975</pre>
 
+## How to extract simulated reads by barcode?
 
+<pre>barcode="AAACCCAAGCGTATGG"
+r1="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/_R1_.fq"
+r2="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/_R2_.fq"
+paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f1 -d$'\t' > "$barcode"_r1.fq
+paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f2 -d$'\t' > "$barcode"_r2.fq
+</pre>
