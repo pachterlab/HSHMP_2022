@@ -101,7 +101,7 @@ exe/STAR_2.7.9a --runMode genomeGenerate --runThreadN $n_threads --genomeDir $ou
 
 <pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
 mkdir -p $out_dir/decoyFull
-awk '$$1~/^>/ {print substr($$1,2)}' $transcripts_file > $out_dir/decoyFull/decoys.txt
+awk '$$1~/^>/ {print substr($$1,2)}' $genome_file > $out_dir/decoyFull/decoys.txt
 cat $transcripts_file $genome_file > $out_dir/decoyFull/gentrome.fa
 runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $out_dir/decoyFull/gentrome.fa -d $out_dir/decoyFull/decoys.txt --gencode -i $out_dir/decoyFull/index -p $n_threads"
 echo "$runCommand" > $out_dir/decoyFull/log && $runCommand &>> $out_dir/decoyFull/log</pre>
