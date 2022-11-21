@@ -168,13 +168,23 @@ ENSG00000123975</pre>
 ## How to extract simulated reads by barcode?
 
 <pre>barcode="AAACCCAAGCGTATGG"
+out_dir="inspect_$barcode"
+mkdir -p "$out_dir"
 r1="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/_R1_.fq"
 r2="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/_R2_.fq"
-paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f1 -d$'\t' > "$barcode"_r1.fq
-paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f2 -d$'\t' > "$barcode"_r2.fq
+paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f1 -d$'\t' > "$out_dir"/"$barcode"_r1.fq
+paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f2 -d$'\t' > "$out_dir"/"$barcode"_r2.fq
 </pre>
 
 Get genes that are false positives in kallisto but not STAR:
 
 <pre>comm -23 <(cat results_sim_vs_kallisto_offlist.txt|grep -A4 "$barcode"|tail -1|tr , '\n'|sort) <(cat results_sim_vs_star.txt|grep -A4 AAACCCAAGCGTATGG|tail -1|tr , '\n'|sort) > false_positives_in_kallisto_but_not_star.txt</pre>
 
+Run kallisto mapping on all reads associated with the given barcode
+
+<pre>kallisto="exe/kallisto_0.49.0"
+bustools="exe/bustools_0.41.1"
+genome_name="human_CR_3.0.0"
+index_name="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"
+$kallisto bus -n -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r2.fq
+</pre>
