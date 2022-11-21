@@ -189,4 +189,5 @@ index_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
 index_name="$index_dir/index.idx"
 t2g_file="$index_dir/g"
 $kallisto bus -n -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r2.fq
+cut -f2 $t2g_file|sed 's/\..*//' > $out_dir/quant/genes.txt
 </pre>
