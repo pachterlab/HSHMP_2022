@@ -193,3 +193,21 @@ grep -F -f "$out_dir/false_positives_in_kallisto_but_not_star.txt" "$t2g_file"|c
 $bustools capture -o $out_dir/quant/output.c.bus -c $out_dir/quant/capture.txt -e $out_dir/quant/matrix.ec -t $out_dir/quant/transcripts.txt --transcripts $out_dir/quant/output.bus
 $bustools text -pf $out_dir/quant/output.c.bus|cut -f5 > $out_dir/quant/read_numbers.txt
 </pre>
+
+Now extract those reads:
+
+<pre>out_file="$out_dir/extracted_reads.fq"
+touch "$out_file"
+cat <(cat $out_dir/quant/read_numbers.txt|awk '{print ($1+1)*4-3,",",($1+1)*4,"p"}'|tr -d ' ') | while read pattern
+do
+cat "$out_dir"/"$barcode"_r2.fq|sed -n "$pattern" >> "$out_file"
+done
+</pre>
+
+Sanity check: (all extracted reads should pseudoalign)
+
+<pre>$kallisto quant -i "$index_name" -o $out_dir/quant_verification/ --single -l 1 -s 1 --single-overhang "$out_file"</pre>
+
+
+
+<pre>
