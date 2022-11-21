@@ -173,3 +173,8 @@ r2="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/samples/10X/3/pbmc_
 paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f1 -d$'\t' > "$barcode"_r1.fq
 paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f2 -d$'\t' > "$barcode"_r2.fq
 </pre>
+
+Get genes that are false positives in kallisto but not STAR:
+
+<pre>comm -23 <(cat results_sim_vs_kallisto_offlist.txt|grep -A4 "$barcode"|tail -1|tr , '\n'|sort) <(cat results_sim_vs_star.txt|grep -A4 AAACCCAAGCGTATGG|tail -1|tr , '\n'|sort) > false_positives_in_kallisto_but_not_star.txt</pre>
+
