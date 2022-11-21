@@ -185,6 +185,8 @@ Run kallisto mapping on all reads associated with the given barcode
 <pre>kallisto="exe/kallisto_0.49.0"
 bustools="exe/bustools_0.41.1"
 genome_name="human_CR_3.0.0"
-index_name="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"
+index_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
+index_name="$index_dir/index.idx"
+t2g_file="$index_dir/g"
 $kallisto bus -n -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r2.fq
 </pre>
