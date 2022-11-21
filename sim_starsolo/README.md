@@ -180,7 +180,7 @@ Get genes that are false positives in kallisto but not STAR:
 
 <pre>comm -23 <(cat results_sim_vs_kallisto_offlist.txt|grep -A4 "$barcode"|tail -1|tr , '\n'|sort) <(cat results_sim_vs_star.txt|grep -A4 AAACCCAAGCGTATGG|tail -1|tr , '\n'|sort) > "$out_dir"/false_positives_in_kallisto_but_not_star.txt</pre>
 
-Run kallisto mapping on all reads associated with the given barcode and output a file with EC mapping to read number
+Run kallisto mapping on all reads associated with the given barcode, capture all reads that have a transcript associated with the genes that are false positive in kallisto but not STAR, and output a file of read numbers (zero-indexed) where those problematic reads occur.
 
 <pre>kallisto="exe/kallisto_0.49.0"
 bustools="exe/bustools_0.41.1"
@@ -189,6 +189,7 @@ index_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
 index_name="$index_dir/index.idx"
 t2g_file="$index_dir/g"
 $kallisto bus -n -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r2.fq
-cut -f2 $t2g_file|sed 's/\..*//' > $out_dir/quant/genes.txt
-$bustools text -pf $out_dir/quant/output.bus|cut -f3,5 > $out_dir/quant/output_ec_read.txt
+grep -F -f "$out_dir/false_positives_in_kallisto_but_not_star.txt" "$t2g_file"|cut -f1 > $out_dir/quant/capture.txt
+$bustools capture -o $out_dir/quant/output.c.bus -c $out_dir/quant/capture.txt -e $out_dir/quant/matrix.ec -t $out_dir/quant/transcripts.txt --transcripts $out_dir/quant/output.bus
+$bustools text -pf $out_dir/quant/output.c.bus|cut -f5 > $out_dir/quant/read_numbers.txt
 </pre>
