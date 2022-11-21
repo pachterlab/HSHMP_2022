@@ -180,7 +180,7 @@ Get genes that are false positives in kallisto but not STAR:
 
 <pre>comm -23 <(cat results_sim_vs_kallisto_offlist.txt|grep -A4 "$barcode"|tail -1|tr , '\n'|sort) <(cat results_sim_vs_star.txt|grep -A4 AAACCCAAGCGTATGG|tail -1|tr , '\n'|sort) > "$out_dir"/false_positives_in_kallisto_but_not_star.txt</pre>
 
-Run kallisto mapping on all reads associated with the given barcode
+Run kallisto mapping on all reads associated with the given barcode and output a file with EC mapping to read number
 
 <pre>kallisto="exe/kallisto_0.49.0"
 bustools="exe/bustools_0.41.1"
@@ -190,4 +190,5 @@ index_name="$index_dir/index.idx"
 t2g_file="$index_dir/g"
 $kallisto bus -n -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r2.fq
 cut -f2 $t2g_file|sed 's/\..*//' > $out_dir/quant/genes.txt
+$bustools text -pf $out_dir/quant/output.bus|cut -f3,5 > $out_dir/quant/output_ec_read.txt
 </pre>
