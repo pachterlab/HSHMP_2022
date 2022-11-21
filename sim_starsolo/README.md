@@ -178,7 +178,7 @@ paste "$r1" "$r2"|grep -B1 -A2 ^$barcode|grep -v ^\-\-$|cut -f2 -d$'\t' > "$out_
 
 Get genes that are false positives in kallisto but not STAR:
 
-<pre>comm -23 <(cat results_sim_vs_kallisto_offlist.txt|grep -A4 "$barcode"|tail -1|tr , '\n'|sort) <(cat results_sim_vs_star.txt|grep -A4 AAACCCAAGCGTATGG|tail -1|tr , '\n'|sort) > false_positives_in_kallisto_but_not_star.txt</pre>
+<pre>comm -23 <(cat results_sim_vs_kallisto_offlist.txt|grep -A4 "$barcode"|tail -1|tr , '\n'|sort) <(cat results_sim_vs_star.txt|grep -A4 AAACCCAAGCGTATGG|tail -1|tr , '\n'|sort) > "$out_dir"/false_positives_in_kallisto_but_not_star.txt</pre>
 
 Run kallisto mapping on all reads associated with the given barcode
 
