@@ -188,7 +188,7 @@ genome_name="human_CR_3.0.0"
 index_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
 index_name="$index_dir/index.idx"
 t2g_file="$index_dir/g"
-$kallisto bus -n -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r2.fq
+$kallisto bus -n -x 10xv3 -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r1.fq "$out_dir"/"$barcode"_r2.fq
 grep -F -f "$out_dir/false_positives_in_kallisto_but_not_star.txt" "$t2g_file"|cut -f1 > $out_dir/quant/capture.txt
 $bustools capture -o $out_dir/quant/output.c.bus -c $out_dir/quant/capture.txt -e $out_dir/quant/matrix.ec -t $out_dir/quant/transcripts.txt --transcripts $out_dir/quant/output.bus
 $bustools text -pf $out_dir/quant/output.c.bus|cut -f5 > $out_dir/quant/read_numbers.txt
