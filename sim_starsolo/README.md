@@ -186,6 +186,7 @@ Run kallisto mapping on all reads associated with the given barcode, capture all
 bustools="exe/bustools_0.41.1"
 genome_name="human_CR_3.0.0"
 index_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
+cdna_file="genomes/index/kallisto_0.49.0/$genome_name/standard_1/f1"
 index_name="$index_dir/index.idx"
 t2g_file="$index_dir/g"
 $kallisto bus -n -x 10xv3 -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r1.fq "$out_dir"/"$barcode"_r2.fq
@@ -215,3 +216,7 @@ To inspect a particular read:
 <pre>read_num=0
 cat "$out_file"|head -$((4*(0+1)))|tail -4 > temp.fq
 $kallisto quant -i "$index_name" -o temp_inspect/ --single -l 1 -s 1 --single-overhang temp.fq && cat temp_inspect/abundance.tsv|grep -v 0$</pre>
+
+* You can get the read sequence via `cat temp.fq` and blat it
+* You can grep the transcripts, e.g. `cat "$t2g_file"|grep ENST00000540040` to find the gene name and location.
+* You can get the transcript sequence via `grep -A1 ENST00000540040 "$cdna_file"` for blast alignment
