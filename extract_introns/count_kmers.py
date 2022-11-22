@@ -6,7 +6,7 @@ Author:
     keldjarn@caltech.edu
 
 Usage:
-./extract_introns.py --gtf annotation.gtf3 --fa scaffolds.fasta -out output_directory [--union] [--diff]
+./count_kmers.py --gtf annotation.gtf3 --fa scaffolds.fasta
 
 """
 
@@ -18,15 +18,6 @@ import gzip
 from utils import (reverse_complement, parse_rest, parse_fasta, collapse_N,
                    merge_intervals, interval_diff)
 
-def write_gene(gene, data, out):
-    if len(data) == 0:
-        return
-    with open(path, 'a') as fh:
-        fh.write(f'>{tr}\n')
-        fh.write(data)
-        # fh.write('\n'.join([data[i:i+80] for i in range(0, len(data), 80)]))
-        fh.write('\n')
-
 def collapse_data(intervals, sequence, strand):
     data = ''.join(map(lambda iv: sequence[iv[0]:iv[1]], intervals))
     data = collapse_N(data.upper())
@@ -34,7 +25,7 @@ def collapse_data(intervals, sequence, strand):
         data = reverse_complement(data)
     return data
 
-def process_gene(gene, scaffolds, out, nascent, mature):
+def process_gene(gene, scaffolds):
     try:
         sequence = scaffolds[gene['scaffold']]
     except KeyError as _:
@@ -43,38 +34,44 @@ def process_gene(gene, scaffolds, out, nascent, mature):
 
     print(f'processing {gene["name"]}')
 
-    if not nascent and not mature:
-        nascent = True
-        mature = True
-
+    nascent = set()
+    mature = set()
+    ambiguous = set()
     for tr, data in gene['trs'].items():
         exons = data['exons']
-        # TODO:
-        # Decide how to handle single-exon isoforms
 
-        # Nascent transcript
+        ivs = sorted([(e['start'], e['end']) for e in exons], key=lambda e: e[0])
+        ivs = list(merge_intervals(ivs))
+        if len(ivs) > 1:
+
+            # Get k-mers containing exon-exon boundaries
+            for idx in range(len(ivs) - 1):
+                seq = sequence[max(ivs[idx][0], ivs[idx][1]-30) : ivs[idx][1]] + sequence[ivs[idx+1][0] : min(ivs[idx+1][1], ivs[idx+1][0]+30)]
+                if len(seq) > 30:
+                    for start in range(len(seq) - 30):
+                        mature.add(seq[start:start+31])
+
+        # Get all interior k-mers of exons
+        for iv in ivs:
+            seq = sequence[iv[0]:iv[1]]
+            if len(seq) > 30:
+                for start in range(len(seq) - 30):
+                    ambiguous.add(seq[start:start+31])
+
+        # All other k-mers are nascent
         seq = sequence[gene['start']:gene['end']]
-        # if gene['strand'] == '-':
-            # seq = reverse_complement(seq)
+        if len(seq) > 30:
+            for start in range(len(seq) - 30):
+                kmer = seq[start:start+31]
+                if kmer in mature:
+                    ambiguous.add(kmer)
+                elif kmer not in ambiguous:
+                    nascent.add(kmer)
 
-        if nascent:
-            header = f'>{tr}.N nascent_transcript chromosome:GRCh38:{gene["scaffold"]}:{gene["start"]}:{gene["end"]} gene:{gene["name"]} strand{gene["strand"]}\n'
-            out.write(header)
-            # out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
-            out.write(seq)
-            out.write('\n')
+    return nascent, mature, ambiguous
 
-        # Mature transcript
-        if mature:
-            ivs = sorted([(e['start'], e['end']) for e in exons], key=lambda e: e[0])
-            ivs = list(merge_intervals(ivs))
-            header = f'>{tr}.M mature_transcript chromosome:GRCh38:{gene["scaffold"]}:{ivs[0][0]}:{ivs[-1][1]} gene:{gene["name"]} strand{gene["strand"]}\n'
-            seq = collapse_data(ivs, sequence, '+')
-            out.write(header)
-            out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
-            out.write('\n')
 
-def parse_gtf(path, scaffolds, out, nascent, mature):
+def parse_gtf(path, scaffolds):
     # Who the heck came up with this hecking file format?
     genes = {}
     # Apparently, gtf files are not necessarily ordered by gene, so we cannot
@@ -125,22 +122,52 @@ def parse_gtf(path, scaffolds, out, nascent, mature):
                 genes[gene_id]['start'] = fields['start']
                 genes[gene_id]['end'] = fields['end']
 
-    fh = open(out, 'w')
+    nascent = set()
+    mature = set()
+    ambiguous = set()
     for _, gene in genes.items():
-        process_gene(gene, scaffolds, fh, nascent, mature)
-    fh.close()
+        n, m, a = process_gene(gene, scaffolds)
+        nascent = {*nascent, *n}
+        mature = {*mature, *m}
+        ambiguous = {*ambiguous, *a}
 
-def generate_cDNA_introns(gtf_path, fasta_path, out='.', nascent=False, mature=False):
+    nascent_count = 0
+    mature_count = 0
+    ambiguous_count = 0
+    for m in mature:
+
+        revcomp = reverse_complement(m)
+        if m in ambiguous or revcomp in ambiguous:
+            continue
+
+        if m in nascent or revcomp in nascent:
+            ambiguous.add(m)
+            continue
+
+        mature_count += 1
+
+    for n in nascent:
+
+        revcomp = reverse_complement(n)
+        if n in ambiguous or revcomp in ambiguous:
+            continue
+
+        if n in mature or revcomp in mature:
+            ambiguous.add(n)
+            continue
+
+        nascent_count += 1
+
+    print(f'Nascent: {nascent_count}, mature: {mature_count}, ambiguous: {len(ambiguous)}')
+
+def count_kmers(gtf_path, fasta_path):
     scaffolds = parse_fasta(fasta_path)
-    parse_gtf(gtf_path, scaffolds, out, nascent, mature)
+    parse_gtf(gtf_path, scaffolds)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--nascent', action='store_true')
-    parser.add_argument('--mature', action='store_true')
     parser.add_argument('--gtf', type=str, help='Path to GTF file')
     parser.add_argument('--fa', type=str, help='Path to fasta file')
-    parser.add_argument('--out', type=str, help='Path to output file')
     args = parser.parse_args()
 
-    generate_cDNA_introns(args.gtf, args.fa, args.out, args.nascent, args.mature)
+    count_kmers(args.gtf, args.fa)
