@@ -206,16 +206,11 @@ cat "$out_dir"/"$barcode"_r2.fq|sed -n "$pattern" >> "$out_file"
 done
 </pre>
 
-Sanity check: (all extracted reads should pseudoalign)
-
-<pre>$kallisto quant -i "$index_name" -o $out_dir/quant_verification/ --single -l 1 -s 1 --single-overhang "$out_file"</pre>
-
-
 To inspect a particular read:
 
 <pre>read_num=0
 cat "$out_file"|head -$((4*($read_num+1)))|tail -4 > temp.fq
-$kallisto quant -i "$index_name" -o temp_inspect/ --single -l 1 -s 1 --single-overhang temp.fq && cat temp_inspect/abundance.tsv|grep -v 0$</pre>
+$kallisto quant -i "$index_name" -o temp_inspect/ --single -l 1 -s 1 --fr-stranded --single-overhang temp.fq && cat temp_inspect/abundance.tsv|grep -v 0$</pre>
 
 * You can get the read sequence via `cat temp.fq` and blat it
 * You can grep the transcripts, e.g. `cat "$t2g_file"|grep ENST00000540040` to find the gene name and location.
