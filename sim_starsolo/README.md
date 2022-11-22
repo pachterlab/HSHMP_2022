@@ -210,5 +210,8 @@ Sanity check: (all extracted reads should pseudoalign)
 <pre>$kallisto quant -i "$index_name" -o $out_dir/quant_verification/ --single -l 1 -s 1 --single-overhang "$out_file"</pre>
 
 
+To inspect a particular read:
 
-<pre>
+<pre>read_num=0
+cat "$out_file"|head -$((4*(0+1)))|tail -4 > temp.fq
+$kallisto quant -i "$index_name" -o temp_inspect/ --single -l 1 -s 1 --single-overhang temp.fq && cat temp_inspect/abundance.tsv|grep -v 0$</pre>
