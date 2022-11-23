@@ -9,12 +9,11 @@ cd kallisto-bf/ext/htslib && autoheader && autoconf && cd ../../
 mkdir -p build && cd build
 cmake .. && make && cd ../../</pre>
 
-# Python scripts to extract introns
+# Python scripts to build nascent version of transcripts
 
-<pre>cp ../extract_introns.py ./
+<pre>cp ../generate_cDNA+introns.py ./
 cp ../utils.py ./
-./extract_introns.py --gtf $gtf_file --fa $genome_file --out ./introns_.fa --union --diff
-cat ./introns_.fa|awk 'BEGIN {RS = ">" ; FS = "\n" ; ORS = ""} {if ($2) print ">"$0}' > ./introns.fa</pre>
+./generate_cDNA+introns.py --gtf $gtf_file --fa $genome_file --nascent --out ./nascent_transcriptome.fa</pre>
 
 # Define paths
 
@@ -41,7 +40,7 @@ $kallisto index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FI
 out_dir="kallisto_index_offlist/"
 mkdir -p $out_dir
 cp $prev_dir/* $out_dir
-$kallisto index -t 44 -b ./introns.fa -i $out_dir/index.idx $prev_dir/f1</pre>
+$kallisto index -t 44 -b ./nascent_transcriptome.fa -i $out_dir/index.idx $prev_dir/f1</pre>
 
 ## Intron-only index
 
@@ -58,10 +57,10 @@ kb ref --kallisto $prev_kallisto --workflow=lamanno -i $out_dir/index.idx -g $ou
 
 # Define paths to the four simulations
 
-<pre>f1="/home/kristjan/kallisto_bf_analysis/simulated_reads/hg38_cDNA+introns_5000000_reads_20221110.fq"
-f2="/home/kristjan/kallisto_bf_analysis/simulated_reads/hg38_cDNA_only_5000000_reads_20221110.fq"
-f3="/home/kristjan/kallisto_bf_analysis/simulated_reads/hg38_introns_only_5000000_reads_20221110.fq"
-f4="/home/kristjan/kallisto_bf_analysis/simulated_reads/hg38_nascent_only_5000000_reads_20221110.fq"</pre>
+<pre>f1="/home/kristjan/kallisto_bf_analysis/simulated_reads/cytoplasmic/f1_hg38_mature_only_4500000_reads_20221118.fq"
+f2="/home/kristjan/kallisto_bf_analysis/simulated_reads/cytoplasmic/f1_hg38_nascent_only_500000_reads_20221118.fq"
+f3="/home/kristjan/kallisto_bf_analysis/simulated_reads/nuclear/f1_hg38_mature_only_1000000_reads_20221119.fq"
+f4="/home/kristjan/kallisto_bf_analysis/simulated_reads/nuclear/f1_hg38_nascent_only_4000000_reads_20221119.fq"</pre>
 
 # Run the various kallisto indices on the four simulations
 
@@ -91,5 +90,5 @@ $prev_kallisto quant -i $out_dir/index.idx -t 16 -o $out_dir/f4_out/ --single -l
 
 # Analyze number of reads mapped
 
-Each output folder contains a run_info.json file that tells you how many reads were mapped. For example, to see the number of reads mapped for the f2 FASTQ file (hg38_cDNA_only_5000000_reads_20221110.fq) for the cDNA + Off-list introns kallisto index (kallisto_index_offlist/index.idx), you should go to **kallisto_index_offlist/f2_out/run_info.json** 
+Each output folder contains a run_info.json file that tells you how many reads were mapped. For example, to see the number of reads mapped for the f2 FASTQ file (f1_hg38_nascent_only_500000_reads_20221118.fq) for the cDNA + Off-list introns kallisto index (kallisto_index_offlist/index.idx), you should go to **kallisto_index_offlist/f2_out/run_info.json** 
 
