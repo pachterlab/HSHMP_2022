@@ -51,7 +51,7 @@ make -C sims
 
 <pre>ln -s /home/dsullivan/kallisto-bf/build/src/kallisto exe/kallisto_0.49.0
 ln -s /home/dsullivan/bustools/build/src/bustools exe/bustools_0.41.1
-ln -s /home/kristjan/cellranger/cellranger-6.1.2/cellranger exe/CellRanger_6.1.6
+ln -s /home/kristjan/cellranger/cellranger-6.1.2/cellranger exe/CellRanger_6.1.2
 ln -s /home/kristjan/cellranger/cellranger-7.0.1/cellranger exe/CellRanger_7.0.1
 ln -s /home/dsullivan/salmon-1.9.0_linux_x86_64/bin/salmon exe/salmon_1.9.0
 ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
@@ -111,6 +111,10 @@ mkdir -p $out_dir/splici
 pyroe make-splici "$genome_file" "$gtf_file" 91 $out_dir/splici/salmon_splici_91 --flank-trim-length 5 --filename-prefix splici
 runCommand="exe/salmon_1.9.0 index -t $out_dir/splici/salmon_splici_91/splici_fl86.fa --gencode -i $out_dir/splici/index -p $n_threads"
 echo "$runCommand" > $out_dir/splici/log && $runCommand &>> $out_dir/splici/log</pre>
+
+## Cell Ranger
+<pre>exe/CellRanger_7.0.1 mkref --genes=$gtf_file --fasta=$fasta_file --genome=$genome_name --nthreads=$n_threads</pre>
+
 
 # Run simulations
 
