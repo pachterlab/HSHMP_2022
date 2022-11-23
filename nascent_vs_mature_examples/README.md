@@ -4,7 +4,9 @@ Run the bbmap_sims steps first.
 
 <pre>kallisto="/home/dsullivan/benchmarking/kristjan/kallisto-bf/build/src/kallisto"
 prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"
-bustools="/home/dsullivan/bustools/build/src/bustools"</pre>
+bustools="/home/dsullivan/bustools/build/src/bustools"
+
+salmon="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/exe/salmon_1.9.0"</pre>
 
 ## MYC
 
