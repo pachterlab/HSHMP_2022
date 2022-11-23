@@ -104,6 +104,14 @@ cat $transcripts_file $genome_file > $out_dir/decoyFull/gentrome.fa
 runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $out_dir/decoyFull/gentrome.fa -d $out_dir/decoyFull/decoys.txt --gencode -i $out_dir/decoyFull/index -p $n_threads"
 echo "$runCommand" > $out_dir/decoyFull/log && $runCommand &>> $out_dir/decoyFull/log</pre>
 
+### splici (TODO: in-progress)
+
+<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
+mkdir -p $out_dir/splici
+pyroe make-splici "$genome_file" "$gtf_file" 91 $out_dir/splici/salmon_splici_91 --flank-trim-length 5 --filename-prefix splici
+runCommand="exe/salmon_1.9.0 index -t $out_dir/splici/salmon_splici_91/splici_fl86.fa --gencode -i $out_dir/splici/index -p $n_threads"
+echo "$runCommand" > $out_dir/splici/log && $runCommand &>> $out_dir/splici/log</pre>
+
 # Run simulations
 
 Clear simulations:
