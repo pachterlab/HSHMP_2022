@@ -7,11 +7,21 @@ kallisto v0.48.0 (previous version of kallisto):
 bustools v0.41.1 (newest version of bustools)
 /home/dsullivan/bustools/build/src/bustools
 
+Cell Ranger v3.1.0 (Released July 24, 2019. Downloaded November 22, 2022)
+/home/kristjan/cellranger/cellranger-3.1.0/cellranger
+
+Cell Ranger v4.0.0 (Released July 7, 2020. Downloaded November 22, 2022)
+/home/kristjan/cellranger/cellranger-4.0.0/cellranger
+
+Cell Ranger v5.0.1 (Released December 16, 2020. Downloaded November 22, 2022)
+/home/kristjan/cellranger/cellranger-5.0.1/cellranger
+
 Cell Ranger v6.1.6 (Released October 25, 2021. Downloaded October 7, 2022)
 /home/kristjan/cellranger/cellranger-6.1.2/cellranger
 
 Cell Ranger v7.0.1 (Released August 18, 2022. Downloaded October 7, 2022)
 /home/kristjan/cellranger/cellranger-7.0.1/cellranger
+
 
 salmon v1.9.0 (Released Jun 23, 2022. Download Oct 11, 2022) # Downloaded via: wget https://github.com/COMBINE-lab/salmon/releases/download/v1.9.0/salmon-1.9.0_linux_x86_64.tar.gz && tar -xzvf salmon-1.9.0_linux_x86_64.tar.gz
 /home/dsullivan/salmon-1.9.0_linux_x86_64/bin/salmon
