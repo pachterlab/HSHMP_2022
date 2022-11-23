@@ -122,14 +122,57 @@ def parse_gtf(path, scaffolds):
                 genes[gene_id]['start'] = fields['start']
                 genes[gene_id]['end'] = fields['end']
 
+    nascent_l = []
+    mature_l = []
+    ambiguous_l = []
     nascent = set()
     mature = set()
     ambiguous = set()
+    count = 0
     for _, gene in genes.items():
         n, m, a = process_gene(gene, scaffolds)
-        nascent = {*nascent, *n}
-        mature = {*mature, *m}
-        ambiguous = {*ambiguous, *a}
+        nascent_l.append(n)
+        mature_l.append(m)
+        ambiguous_l.append(a)
+
+        count += 1
+        if count % 100 == 0:
+
+            print(f'Processed {count} genes')
+            print('=======================')
+
+            for n_s in nascent_l:
+                for n in n_s:
+                    nascent.add(n)
+            nascent_l = []
+
+            for m_s in mature_l:
+                for m in m_s:
+                    mature.add(m)
+            mature_l = []
+
+    print(f'Processed {count} genes')
+    print('=======================')
+    for a_s in ambiguous_l:
+        for a in a_s:
+            ambiguous.add(a)
+    ambiguous_l = []
+
+    for n_s in nascent_l:
+        for n in n_s:
+            nascent.add(n)
+    nascent_l = []
+
+    for m_s in mature_l:
+        for m in m_s:
+            mature.add(m)
+    mature_l = []
+
+    for a_s in ambiguous_l:
+        for a in a_s:
+            ambiguous.add(a)
+
+    ambiguous_l = []
 
     nascent_count = 0
     mature_count = 0
