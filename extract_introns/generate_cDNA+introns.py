@@ -47,28 +47,42 @@ def process_gene(gene, scaffolds, out, nascent, mature):
         nascent = True
         mature = True
 
+    if nascent:
+        # Find start of first exon and end of last exon in gene
+        end = 0
+        start = float('inf')
+        for tr, data in gene['trs'].items():
+            start = min(start, min(e['start'] for e in data['exons']))
+            end = max(end, max(e['end'] for e in data['exons']))
+        seq = sequence[start:end]
+        header = f'>{gene["name"]} nascent_transcript chromosome:GRCh38:{gene["scaffold"]}:{gene["start"]}:{gene["end"]} gene:{gene["name"]} strand{gene["strand"]}\n'
+        out.write(header)
+        # out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
+        out.write(seq)
+        out.write('\n')
+
     for tr, data in gene['trs'].items():
         exons = data['exons']
         # TODO:
         # Decide how to handle single-exon isoforms
 
         # Nascent transcript
-        seq = sequence[gene['start']:gene['end']]
-        # if gene['strand'] == '-':
-            # seq = reverse_complement(seq)
+        # seq = sequence[gene['start']:gene['end']]
+        # # if gene['strand'] == '-':
+            # # seq = reverse_complement(seq)
 
-        if nascent:
-            header = f'>{tr}.N nascent_transcript chromosome:GRCh38:{gene["scaffold"]}:{gene["start"]}:{gene["end"]} gene:{gene["name"]} strand{gene["strand"]}\n'
-            out.write(header)
-            # out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
-            out.write(seq)
-            out.write('\n')
+        # if nascent:
+            # header = f'>{tr}.N nascent_transcript chromosome:GRCh38:{gene["scaffold"]}:{gene["start"]}:{gene["end"]} gene:{gene["name"]} strand{gene["strand"]}\n'
+            # out.write(header)
+            # # out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
+            # out.write(seq)
+            # out.write('\n')
 
         # Mature transcript
         if mature:
             ivs = sorted([(e['start'], e['end']) for e in exons], key=lambda e: e[0])
             ivs = list(merge_intervals(ivs))
-            header = f'>{tr}.M mature_transcript chromosome:GRCh38:{gene["scaffold"]}:{ivs[0][0]}:{ivs[-1][1]} gene:{gene["name"]} strand{gene["strand"]}\n'
+            header = f'>{tr} mature_transcript chromosome:GRCh38:{gene["scaffold"]}:{ivs[0][0]}:{ivs[-1][1]} gene:{gene["name"]} strand{gene["strand"]}\n'
             seq = collapse_data(ivs, sequence, '+')
             out.write(header)
             out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
