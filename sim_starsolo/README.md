@@ -51,7 +51,7 @@ make -C sims
 
 <pre>ln -s /home/dsullivan/kallisto-bf/build/src/kallisto exe/kallisto_0.49.0
 ln -s /home/dsullivan/bustools/build/src/bustools exe/bustools_0.41.1
-ln -s /home/kristjan/cellranger/cellranger-6.1.2/cellranger exe/CellRanger_6.1.2
+ln -s /home/kristjan/cellranger/cellranger-3.1.0/cellranger exe/CellRanger_3.1.0
 ln -s /home/kristjan/cellranger/cellranger-7.0.1/cellranger exe/CellRanger_7.0.1
 ln -s /home/dsullivan/salmon-1.9.0_linux_x86_64/bin/salmon exe/salmon_1.9.0
 ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
