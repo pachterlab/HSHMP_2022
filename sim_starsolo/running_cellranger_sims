@@ -9,4 +9,9 @@ cp /home/dsullivan/benchmarking/starsolo/STARsoloManuscript/samples/10X/3/pbmc_5
 gzip -v 10xV3_format/5k_pbmc_sims_v3_S1_L001_R1_001.fastq 10xV3_format/5k_pbmc_sims_v3_S1_L001_R2_001.fastq
 
 # Now we have files on the format Sample_S1_L00X_R1_001.fastq.gz, which is what CellRanger requires
-exe/cellranger3 count --id=output_cellranger_3 --fastqs=10xV3_format --sample=5k_pbmc_sims_v3 --lanes=1 --transcriptome=hg38_genome --localcores=$n_threads
+
+index="genomes/index/cellranger3/$genome_name"
+exe/CellRanger_3.1.0 count --id=output_cellranger_3 --fastqs=10xV3_format --sample=5k_pbmc_sims_v3 --lanes=1 --transcriptome=$index --localcores=$n_threads
+
+index="genomes/index/cellranger7/$genome_name"
+exe/CellRanger_7.0.1 count --id=output_cellranger_7 --fastqs=10xV3_format --sample=5k_pbmc_sims_v3 --lanes=1 --transcriptome=$index --localcores=$n_threads
