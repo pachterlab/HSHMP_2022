@@ -113,12 +113,13 @@ runCommand="exe/salmon_1.9.0 index -t $out_dir/splici/salmon_splici_91/splici_fl
 echo "$runCommand" > $out_dir/splici/log && $runCommand &>> $out_dir/splici/log</pre>
 
 ## Cell Ranger
+Cell ranger apparently always deposits the index into the directory from which it is run. Hence, we generate the indices and then `mv` them to the desired location.
 <pre>out_dir="genomes/index"
 exe/CellRanger_7.0.1 mkref --genes=$gtf_file --fasta=$fasta_file --genome=$genome_name --nthreads=$n_threads
-mv cellranger7 $out_dir/cellranger7/$genome_name</pre>
+mv $genome_name $out_dir/cellranger7/$genome_name</pre>
 
 <pre>exe/CellRanger_3.1.0 mkref --genes=$gtf_file --fasta=$fasta_file --genome=$genome_name --nthreads=$n_threads
-mv cellranger7 $out_dir/cellranger3/$genome_name</pre>
+mv $genome_name $out_dir/cellranger3/$genome_name</pre>
 
 
 # Run simulations
