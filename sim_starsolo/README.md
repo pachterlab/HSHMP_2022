@@ -113,11 +113,12 @@ runCommand="exe/salmon_1.9.0 index -t $out_dir/splici/salmon_splici_91/splici_fl
 echo "$runCommand" > $out_dir/splici/log && $runCommand &>> $out_dir/splici/log</pre>
 
 ## Cell Ranger
-<pre>exe/CellRanger_7.0.1 mkref --genes=$gtf_file --fasta=$fasta_file --genome=cellranger7 --nthreads=$n_threads
-mv cellranger7 $out_dir/cellranger7</pre>
+<pre>out_dir="genomes/index"
+exe/CellRanger_7.0.1 mkref --genes=$gtf_file --fasta=$fasta_file --genome=$genome_name --nthreads=$n_threads
+mv cellranger7 $out_dir/cellranger7/$genome_name</pre>
 
-<pre>exe/CellRanger_3.1.0 mkref --genes=$gtf_file --fasta=$fasta_file --genome=cellranger3 --nthreads=$n_threads
-mv cellranger7 $out_dir/cellranger3</pre>
+<pre>exe/CellRanger_3.1.0 mkref --genes=$gtf_file --fasta=$fasta_file --genome=$genome_name --nthreads=$n_threads
+mv cellranger7 $out_dir/cellranger3/$genome_name</pre>
 
 
 # Run simulations
