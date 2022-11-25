@@ -27,7 +27,6 @@ mtx_transpose=False
 usa_mode=False # For salmon's USA mode (note: spliced genes come first, then unspliced -U genes, then ambiguous -A genes) (note: spliced, unspliced, and ambiguous genes must appear in the same order)
 usa_sa=False # S+A
 usa_usa=False # U+S+A
-usa_ua=False # U+A
 if len(sys.argv) > 8:
     if sys.argv[8] == "--transpose":
         mtx_transpose=True
@@ -40,9 +39,6 @@ if len(sys.argv) > 8:
     if sys.argv[8] == "--usa-usa":
         usa_mode=True
         usa_usa=True
-    if sys.argv[8] == "--usa-ua":
-        usa_mode=True
-        usa_ua=True
 
 # Extract genes and barcodes lists
 
