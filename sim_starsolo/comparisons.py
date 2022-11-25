@@ -26,6 +26,7 @@ outfilename = sys.argv[7]
 mtx_transpose=False
 usa_mode=False # For salmon's USA mode (note: spliced genes come first, then unspliced -U genes, then ambiguous -A genes) (note: spliced, unspliced, and ambiguous genes must appear in the same order)
 usa_sa=False # S+A
+usa_ua=False # U+A
 usa_usa=False # U+S+A
 if len(sys.argv) > 8:
     if sys.argv[8] == "--transpose":
@@ -33,6 +34,9 @@ if len(sys.argv) > 8:
     if sys.argv[8] == "--usa-sa":
         usa_mode=True
         usa_sa=True
+    if sys.argv[8] == "--usa-ua":
+        usa_mode=True
+        usa_ua=True
     if sys.argv[8] == "--usa-usa":
         usa_mode=True
         usa_usa=True
@@ -64,6 +68,17 @@ program_data = scipy.io.mmread(program_mtx_standard)
 program_data_csr = program_data.tocsr()
 if mtx_transpose:
     program_data_csr = program_data_csr.transpose()
+if usa_mode:
+    ncols = int(program_data_csr.shape[1] / 3)
+    mtx_s = program_data_csr[:,0:ncols]
+    mtx_u = program_data_csr[:,ncols:(ncols*2)]
+    mtx_a = program_data_csr[:,(ncols*2):(ncols*3)]
+    if usa_sa:
+        program_data_csr = (mtx_s+mtx_a)
+    elif usa_ua:
+        program_data_csr = (mtx_u+mtx_a)
+    elif usa_usa:
+        program_data_csr = (mtx_s+mtx_u+mtx_a)
 sim_data = np.array([])
 with open(sim_truth_mtx_MultiGeneNo, 'r') as f:
     sim_data = np.array([[int(num) for num in line.split(' ')] for line in f])
