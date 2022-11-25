@@ -24,6 +24,86 @@ endef
 
 #sleep 300
 
+########################################################################################################## SALMON
+count/salmon%: processName:=salmon
+count/salmon%: refDirSalmon=$(dd)/genomes/index/$(salmon)/$(genome)/$(genomeT)/
+
+
+count/salmon%: tech10Xv2=chromium
+count/salmon%: tech10Xv3=chromiumV3
+count/salmon%: t2gFile=$(dd)/genomes/$(genome)/transcript_to_gene.2col.txt
+count/salmon%: t2gFileSplici=$(refDirSalmon)/salmon_splici_91/splici_fl86_t2g_3col.tsv
+
+salmonPar_sketch := --sketch
+salmonPar_rad    := --rad
+salmonPar_norad :=
+count/salmon%: salmonParAll=alevin -l ISR $(foreach pp, $(subst _, , $(toolP)), $(salmonPar_$(pp)))
+
+######################################################### salmon alevin-fry
+
+count/salmon-alevin-fry_%: salmon=salmon_$(word 2, $(subst _, ,$(tool)))
+count/salmon-alevin-fry_%: alevin-fry=alevin-fry_$(word 3, $(subst _, ,$(tool)))
+
+count/salmon-alevin-fry_%/map/COMmap:
+        $(PREP_$(PREPoption))
+        mkdir -p count/salmon-alevin-fry_$* && cd count/salmon-alevin-fry_$* &&\
+        $(RUN_salmon)
+
+count/salmon-alevin-fry_%/gpl_$(afGplOpt)/COMgpl: count/salmon-alevin-fry_%/map/COMmap
+        mkdir -p $(@D) && cd $(@D) && \
+        $(RUN_alevin-fry_generate-permit-list)
+
+count/salmon-alevin-fry_%/gpl_$(afGplOpt)/COMcollate: count/salmon-alevin-fry_%/gpl_$(afGplOpt)/COMgpl
+        cd $(@D) &&\
+        $(RUN_alevin-fry_collate)
+
+### main target
+count/salmon-alevin-fry_%/CO: count/salmon-alevin-fry_%/gpl_$(afGplOpt)/COMcollate
+        cd count/salmon-alevin-fry_$*/gpl_$(afGplOpt) &&\
+        $(RUN_alevin-fry_quant) &&\
+        echo Success > ../CO
+
+##################################### salmon
+define RUN_salmon
+        cp $(t2gFile) t2g.txt && if [[ $@ == *splici* ]]; then cp $(t2gFileSplici) t2g.txt; fi &&\
+        $(timer) $(dd)/exe/$(salmon)    $(salmonParAll) \
+        -1 $(sampleDir)/*_R1_* -2 $(sampleDir)/*_R2_* \
+        --$(techOption) -p $(threads) -o ./map \
+        -i $(refDirSalmon)/index --tgMap  t2g.txt &> log.salmon &&\
+        echo Success > ./map/COMmap
+endef
+
+#################################### alevin-fry generate-permit-list
+afGplPar_knee := --knee-distance
+afGplPar_force10M := --force-cells 10000000
+count/salmon-alevin-fry%: afGplParAll = -d fw $(foreach pp, $(subst _, , $(afGplOpt)), $(afGplPar_$(pp)))
+
+define RUN_alevin-fry_generate-permit-list
+        $(timer) $(dd)/exe/$(alevin-fry) generate-permit-list   $(afGplParAll)   -i ../map -o ./ &> log.gpl &&\
+        echo Success > COMgpl
+endef
+
+################################### alevin-fry collate
+define RUN_alevin-fry_collate
+        $(timer) $(dd)/exe/$(alevin-fry) collate -t $(threads) -i ./ -r ../map &> log.collate &&\
+        echo Success > COMcollate
+endef
+
+################################### alevin-fry quant
+afQuantResolutions := trivial cr-like cr-like-em
+
+define RUN_alevin-fry_quant
+        cp $(t2gFile) t2g.txt && if [[ $@ == *decoy* ]]; then awk '{print $$1 "\t" $$1}' $(refDirSalmon)/decoys.txt >> t2g.txt; fi && if [[ $@ == *splici* ]]; then cp $(t2gFileSplici) t2g.txt; fi &&\
+        for res in $(afQuantResolutions); do \
+                if [[ $$res != "trivial" || $@ != *splici* ]]; then \
+                $(timer) $(dd)/exe/$(alevin-fry) quant --resolution $$res -t $(threads) -i ./ -o ./quant_$$res --use-mtx --tg-map t2g.txt &> log.quant_$$res &&\
+                echo Success > ./quant_$$res/CO; \
+                fi \
+        done
+endef
+
+
+
 ######################################################### kb counting
 count/kallisto_%: processName:=kb
 
