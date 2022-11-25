@@ -21,6 +21,16 @@ program_barcodes_standard = sys.argv[6]
 
 outfilename = sys.argv[7]
 
+# Misc options
+
+arg_i = 8
+barcodes_file = ""
+
+if len(sys.argv) > (arg_i+1):
+    if sys.argv[arg_i] == "--barcodes":
+        barcodes_file = sys.argv[arg_i+1]
+        arg_i += 2
+
 # Transpose?
 
 mtx_transpose=False
@@ -28,16 +38,16 @@ usa_mode=False # For salmon's USA mode (note: spliced genes come first, then uns
 usa_sa=False # S+A
 usa_ua=False # U+A
 usa_usa=False # U+S+A
-if len(sys.argv) > 8:
-    if sys.argv[8] == "--transpose":
+if len(sys.argv) > arg_i:
+    if sys.argv[arg_i] == "--transpose":
         mtx_transpose=True
-    if sys.argv[8] == "--usa-sa":
+    if sys.argv[arg_i] == "--usa-sa":
         usa_mode=True
         usa_sa=True
-    if sys.argv[8] == "--usa-ua":
+    if sys.argv[arg_i] == "--usa-ua":
         usa_mode=True
         usa_ua=True
-    if sys.argv[8] == "--usa-usa":
+    if sys.argv[arg_i] == "--usa-usa":
         usa_mode=True
         usa_usa=True
 
@@ -47,10 +57,16 @@ genes = np.array([line.rstrip().split('.', 1)[0] for line in open(sim_truth_gene
 barcodes = np.array([line.rstrip() for line in open(sim_truth_barcodes)])
 genes_ = np.array([line.rstrip().split('.', 1)[0].split(None, 1)[0] for line in open(program_gene_standard)])
 barcodes_ = np.array([line.rstrip() for line in open(program_barcodes_standard)])
+final_barcodes = np.array([])
+
+if barcodes_file != "":
+    final_barcodes = np.array([line.rstrip() for line in open(barcodes_file)])
 
 # Intersect genes and barcodes lists
 
 intersection_barcodes = np.intersect1d(barcodes, barcodes_);
+if barcodes_file != "":
+    intersection_barcodes = np.intersect1d(intersection_barcodes, final_barcodes);
 sorter = np.argsort(barcodes)
 bc1 = sorter[np.searchsorted(barcodes, intersection_barcodes, sorter=sorter)]
 sorter = np.argsort(barcodes_)
