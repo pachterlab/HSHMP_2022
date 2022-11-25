@@ -33,9 +33,6 @@ if len(sys.argv) > 8:
     if sys.argv[8] == "--usa-sa":
         usa_mode=True
         usa_sa=True
-    if sys.argv[8] == "--usa-sa":
-        usa_mode=True
-        usa_sa=True
     if sys.argv[8] == "--usa-usa":
         usa_mode=True
         usa_usa=True
