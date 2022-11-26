@@ -16,7 +16,7 @@ import argparse
 import gzip
 
 from utils import (reverse_complement, parse_rest, parse_fasta, collapse_N,
-                   merge_intervals, interval_diff)
+        merge_intervals, interval_diff, rep)
 
 def collapse_data(intervals, sequence, strand):
     data = ''.join(map(lambda iv: sequence[iv[0]:iv[1]], intervals))
@@ -141,49 +141,50 @@ def parse_gtf(path, scaffolds):
             print(f'Processed {count} genes')
             print('=======================')
 
+            for a_s in ambiguous_l:
+                for a in a_s:
+                    ambiguous.add(rep(a))
+            ambiguous_l = []
+
             for n_s in nascent_l:
                 for n in n_s:
-                    nascent.add(n)
+                    nascent.add(rep(n))
             nascent_l = []
 
             for m_s in mature_l:
                 for m in m_s:
-                    mature.add(m)
+                    mature.add(rep(m))
             mature_l = []
+
 
     print(f'Processed {count} genes')
     print('=======================')
+
     for a_s in ambiguous_l:
         for a in a_s:
-            ambiguous.add(a)
+            ambiguous.add(rep(a))
     ambiguous_l = []
 
     for n_s in nascent_l:
         for n in n_s:
-            nascent.add(n)
+            nascent.add(rep(n))
     nascent_l = []
 
     for m_s in mature_l:
         for m in m_s:
-            mature.add(m)
+            mature.add(rep(m))
     mature_l = []
 
-    for a_s in ambiguous_l:
-        for a in a_s:
-            ambiguous.add(a)
-
-    ambiguous_l = []
 
     nascent_count = 0
     mature_count = 0
     ambiguous_count = 0
     for m in mature:
 
-        revcomp = reverse_complement(m)
-        if m in ambiguous or revcomp in ambiguous:
+        if m in ambiguous:
             continue
 
-        if m in nascent or revcomp in nascent:
+        if m in nascent:
             ambiguous.add(m)
             continue
 
@@ -191,11 +192,10 @@ def parse_gtf(path, scaffolds):
 
     for n in nascent:
 
-        revcomp = reverse_complement(n)
-        if n in ambiguous or revcomp in ambiguous:
+        if n in ambiguous:
             continue
 
-        if n in mature or revcomp in mature:
+        if n in mature:
             ambiguous.add(n)
             continue
 
