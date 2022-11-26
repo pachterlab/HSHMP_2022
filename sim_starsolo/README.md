@@ -104,6 +104,15 @@ cat $transcripts_file $genome_file > $out_dir/decoyFull/gentrome.fa
 runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $out_dir/decoyFull/gentrome.fa -d $out_dir/decoyFull/decoys.txt --gencode -i $out_dir/decoyFull/index -p $n_threads"
 echo "$runCommand" > $out_dir/decoyFull/log && $runCommand &>> $out_dir/decoyFull/log</pre>
 
+### standard (dense+sparse) (TODO: in-progress)
+
+<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
+mkdir -p $out_dir/standard
+runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard/index -p $n_threads"
+# Make sparse variant:
+mkdir -p $out_dir/standard_sparse
+runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard_sparse/index -p $n_threads --sparse"</pre>
+
 ### splici (dense+sparse)
 
 <pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
