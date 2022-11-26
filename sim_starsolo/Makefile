@@ -74,8 +74,8 @@ Gene/kbpy:
 	# TODO: Add more kallisto configurations here
 
 Gene/alevin-fry:
-	# make -f Mf.count count/$(alevin-fry)/$(genome)/standard/sketch_rad/$(sample)/$(threadRun)/CO afGplOpt=knee
-	# make -f Mf.count count/$(alevin-fry)/$(genome)/standard/rad/$(sample)/$(threadRun)/CO        afGplOpt=knee
+	make -f Mf.count count/$(alevin-fry)/$(genome)/standard/sketch_rad/$(sample)/$(threadRun)/CO afGplOpt=knee
+	make -f Mf.count count/$(alevin-fry)/$(genome)/standard/rad/$(sample)/$(threadRun)/CO        afGplOpt=knee
 	# make -f Mf.count count/$(alevin-fry)/$(genome)/decoyFull/rad/$(sample)/$(threadRun)/CO       afGplOpt=knee
 	# make -f Mf.count count/$(alevin-fry)/$(genome)/decoyPartial/rad/$(sample)/$(threadRun)/CO    afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/splici/rad/$(sample)/$(threadRun)/CO          afGplOpt=knee
