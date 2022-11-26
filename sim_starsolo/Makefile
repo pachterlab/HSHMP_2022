@@ -79,5 +79,6 @@ Gene/alevin-fry:
 	# make -f Mf.count count/$(alevin-fry)/$(genome)/decoyFull/rad/$(sample)/$(threadRun)/CO       afGplOpt=knee
 	# make -f Mf.count count/$(alevin-fry)/$(genome)/decoyPartial/rad/$(sample)/$(threadRun)/CO    afGplOpt=knee
 	make -f Mf.count count/$(alevin-fry)/$(genome)/splici/rad/$(sample)/$(threadRun)/CO          afGplOpt=knee
+        make -f Mf.count count/$(alevin-fry)/$(genome)/splici/sketch_rad/$(sample)/$(threadRun)/CO          afGplOpt=knee
 
 
