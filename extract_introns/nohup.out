@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/kristjan/Macaca_fasciculari/download_manager.py", line 24, in <module>
+    done = [line.rstrip() for line in open('done.txt')]
+FileNotFoundError: [Errno 2] No such file or directory: 'done.txt'

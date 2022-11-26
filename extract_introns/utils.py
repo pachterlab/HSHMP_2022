@@ -19,6 +19,9 @@ def reverse_complement(string):
     }
     return ''.join(list(map(lambda c: comp[c], string))[::-1])
 
+def rep(string):
+    return min(string, reverse_complement(string))
+
 def parse_rest(rest, file_format='.gtf'):
     # Parses the 'Attributes' field of the gff
     if file_format == '.gff3':
