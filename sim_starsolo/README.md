@@ -109,9 +109,11 @@ echo "$runCommand" > $out_dir/decoyFull/log && $runCommand &>> $out_dir/decoyFul
 <pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
 mkdir -p $out_dir/standard
 runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard/index -p $n_threads"
+echo "$runCommand" > $out_dir/standard/log && $runCommand &>> $out_dir/standard/log
 # Make sparse variant:
 mkdir -p $out_dir/standard_sparse
-runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard_sparse/index -p $n_threads --sparse"</pre>
+runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard_sparse/index -p $n_threads --sparse"
+echo "$runCommand" > $out_dir/standard_sparse/log && $runCommand &>> $out_dir/standard_sparse/log</pre>
 
 ### splici (dense+sparse)
 
