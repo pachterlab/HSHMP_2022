@@ -164,6 +164,13 @@ Run python script with 7 arguments: 1) truth matrix, 2) truth genes list, 3) tru
 
 <pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like-em/alevin/quants_mat.mtx count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like-em/alevin/quants_mat_cols.txt count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like-em/alevin/quants_mat_rows.txt results_sim_vs_salmon_splici_cr_like_em.txt --usa-sa</pre>
 
+### Splici + sketch + CR-Like Resolution
+
+<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/sketch_rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like/alevin/quants_mat.mtx count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/sketch_rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like/alevin/quants_mat_cols.txt count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/sketch_rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like/alevin/quants_mat_rows.txt results_sim_vs_salmon_splici_sketch_cr_like.txt --usa-sa</pre>
+
+### Splici + sketch + CR-Like EM Resolution
+
+<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/sketch_rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like-em/alevin/quants_mat.mtx count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/sketch_rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like-em/alevin/quants_mat_cols.txt count/salmon-alevin-fry_1.9.0_0.8.0/human_CR_3.0.0/splici/sketch_rad/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/gpl_knee/quant_cr-like-em/alevin/quants_mat_rows.txt results_sim_vs_salmon_splici_sketch_cr_like_em.txt --usa-sa</pre>
 
 ## STAR comparison
 
