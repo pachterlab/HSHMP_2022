@@ -167,9 +167,9 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_ambiguous_umi.fq
 
 (exon1intron, intron, and intronexon2 should map)
 
-#### Lamanno index (TODO note: uses an index from an old GTF)
+#### Lamanno index
 
-<pre>$prev_kallisto bus -n -i kallisto_index_lamanno/index.idx -o $out_dir/quant_lamanno/ $out_dir/reads.fq</pre>
+<pre>$prev_kallisto bus -n -i lamanno/index.idx -o $out_dir/quant_lamanno/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_lamanno/output.bus</pre>
 
 (Everything except exon1intron and intronexon2 should map)
