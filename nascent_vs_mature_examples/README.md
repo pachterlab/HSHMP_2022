@@ -6,7 +6,8 @@ Run the bbmap_sims steps first.
 prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"
 bustools="/home/dsullivan/bustools/build/src/bustools"
 
-salmon="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/exe/salmon_1.9.0"</pre>
+salmon="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/exe/salmon_1.9.0"
+af="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/exe/alevin-fry_0.8.0"</pre>
 
 Paths to indices: (TODO: )
 
@@ -149,4 +150,5 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_umi.fq
 
 #### Full cdna index (aka standard) TODO!
 
-<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard</pre>
+<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard
+$af view --rad $out_dir/salmon_standard/map.rad</pre>
