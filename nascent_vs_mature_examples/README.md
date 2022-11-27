@@ -167,8 +167,12 @@ $af view --rad $out_dir/salmon_standard_sketch/map.rad</pre>
 #### Splici index
 
 <pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_splici/ -i $salmon_index_splici --tgMap $t2gFile_salmon_splici
-$af view --rad $out_dir/salmon_splici/map.rad</pre>
+$af view --rad $out_dir/salmon_splici/map.rad
+$af generate-permit-list --force-cells 1 -d fw -i $out_dir/salmon_splici/ -o $out_dir/salmon_splici/
+$af collate -t $n_threads -i $out_dir/salmon_splici/ -r $out_dir/salmon_splici/
+$af quant --resolution cr-like -t $n_threads -i $out_dir/salmon_splici/ -o $out_dir/salmon_splici/quant/ --use-mtx --tg-map $t2gFile_salmon_splici
+cat $out_dir/salmon_splici/quant/alevin/quants_mat.mtx</pre>
 
-(exon1, exon2, and exon1exon2 will map to spliced transcripts; the nascent reads: intron, exon1intron, and intronexon2 will map to intron target: ENSG00000136997-I1)
+(exon1, exon2, and exon1exon2 will map to spliced target ENSG00000136997; the nascent reads: intron, exon1intron, and intronexon2 will map to intron target: ENSG00000136997-I1, and be considered unspliced; nothing is considered ambiguous)
 
-TODO: Resolve splicing origins via alevin-fry 
+TODO: Try to get an ambiguous count! 
