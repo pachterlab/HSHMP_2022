@@ -106,6 +106,32 @@ GGGGGGGGGGGGGGGGGGGGGGAAAAAA
 KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_umi.fq
 </pre>
 
+<pre>echo "@exon1
+GGGGGGGGGGGGGGGGAAAAAATTTTTT
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exon2
+GGGGGGGGGGGGGGGGAAAAAACCCCCC
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exon1exon2
+GGGGGGGGGGGGGGGGAAAAAAGGGGGG
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exon1intron
+GGGGGGGGGGGGGGGGTTTTTTAAAAAA
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@intron
+GGGGGGGGGGGGGGGGAAAAAATTTTTT
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@intronexon2
+GGGGGGGGGGGGGGGGGGGGGGAAAAAA
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_ambiguous_umi.fq
+</pre>
+
 * Mature: exon1exon2
 * Nascent: exon1intron, intron, intronexon2
 * Ambiguous: exon1, exon2
@@ -175,4 +201,13 @@ cat $out_dir/salmon_splici/quant/alevin/quants_mat.mtx</pre>
 
 (exon1, exon2, and exon1exon2 will map to spliced target ENSG00000136997; the nascent reads: intron, exon1intron, and intronexon2 will map to intron target: ENSG00000136997-I1, and be considered unspliced; nothing is considered ambiguous)
 
-TODO: Try to get an ambiguous count! 
+##### Splici index + an exon/intron ambiguous UMI
+
+<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_ambiguous_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_splici_ambiguous/ -i $salmon_index_splici --tgMap $t2gFile_salmon_splici
+$af view --rad $out_dir/salmon_splici_ambiguous/map.rad
+$af generate-permit-list --force-cells 1 -d fw -i $out_dir/salmon_splici_ambiguous/ -o $out_dir/salmon_splici_ambiguous/
+$af collate -t $n_threads -i $out_dir/salmon_splici_ambiguous/ -r $out_dir/salmon_splici_ambiguous/
+$af quant --resolution cr-like -t $n_threads -i $out_dir/salmon_splici_ambiguous/ -o $out_dir/salmon_splici_ambiguous/quant/ --use-mtx --tg-map $t2gFile_salmon_splici
+cat $out_dir/salmon_splici_ambiguous/quant/alevin/quants_mat.mtx</pre>
+
+The UMI AAAAAATTTTTT, which is associated with the two reads: exon1 and intron, will be classified as "ambiguous". The remaining 4 reads are either spliced (exon2 and exon1exon2) or unspliced (exon1intron and intronexon2).
