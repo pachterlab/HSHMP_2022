@@ -8,6 +8,20 @@ bustools="/home/dsullivan/bustools/build/src/bustools"
 
 salmon="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/exe/salmon_1.9.0"</pre>
 
+<pre>nascent_fasta="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/nascent_starsolo_v2.fa"
+cdna_fasta="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/genomes/index/kallisto_0.49.0/human_CR_3.0.0/standard_1/f1"
+
+$kallisto index -i kallisto_nascent_mature.idx -t 20 "$cdna_fasta" "$nascent_fasta"</pre>
+
+## Simulations
+
+<pre>mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R1_001.fastq.gz"
+mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R2_001.fastq.gz"
+nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R1_001.fastq.gz"
+nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R2_001.fastq.gz"</pre>
+
+<pre>$kallisto bus -x 10xv3 -i </pre>
+
 ## MYC
 
 <pre>out_dir="myc"
