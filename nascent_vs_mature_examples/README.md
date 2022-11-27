@@ -38,10 +38,15 @@ kb ref --kallisto $prev_kallisto --workflow=lamanno -i $out_dir/index.idx -g $ou
 
 ## Simulations
 
-<pre>mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R1_001.fastq.gz"
-mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R2_001.fastq.gz"
-nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R1_001.fastq.gz"
-nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R2_001.fastq.gz"</pre>
+<pre>nucleus_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R1_001.fastq.gz"
+nucleus_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R2_001.fastq.gz"
+nucleus_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R1_001.fastq.gz"
+nucleus_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R2_001.fastq.gz"
+
+cytoplasmic_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_1000000_S1_L001_R1_001.fastq.gz"
+cytoplasmic_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_1000000_S1_L001_R2_001.fastq.gz"
+cytoplasmic_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_4000000_S1_L001_R1_001.fastq.gz"
+cytoplasmic_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_4000000_S1_L001_R2_001.fastq.gz"</pre>
 
 <pre>$kallisto bus -x 10xv3 -i </pre>
 
