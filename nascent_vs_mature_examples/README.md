@@ -18,6 +18,8 @@ gtf_file="$main_path/genomes/$genome_name/annotations.gtf"
 n_threads="20"
 
 salmon_index_standard="$main_path/genomes/index/salmon_1.9.0/$genome_name/standard/index"
+kallisto_index="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_1/index.idx"
+kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"
 </pre>
 
 <pre>nascent_fasta="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/nascent_starsolo_v2.fa"
@@ -39,10 +41,9 @@ nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuc
 <pre>out_dir="myc"
 mkdir -p $out_dir</pre>
 
-<pre>cat kallisto_index_cdna/f1|grep -A1 "ENSG00000136997"|grep -v ^\- > $out_dir/cdna.fa</pre>
+<pre>cat $cdna_fasta|grep -A1 "ENSG00000136997"|grep -v ^\- > $out_dir/cdna.fa</pre>
 
-<pre>gtf_file="/home/kristjan/kallisto_bf_analysis/hg38_dna/Homo_sapiens.GRCh38.104.gtf.gz"
-zcat < $gtf_file|grep ENSG00000136997|grep $'\t'gene$'\t' > $out_dir/annotation.gtf</pre>
+<pre>cat $gtf_file|grep ENSG00000136997|grep $'\t'gene$'\t' > $out_dir/annotation.gtf</pre>
 
 <pre>echo "@exon1
 GCTCGCCCAAGTCCTGCGCCTCGCAAGACTCCAGCGCCTTCTCTCCGTCCTCGGATTCTCTGCTCTCCTCGACGGAGTCCTCCCCGCAGGGCAGCCCCGAGCCCCTGGTGCTCCATGAGGAGACACCGCCCACCACCAGCAGCGACTCTG
@@ -86,26 +87,26 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 #### Full cdna index
 
-<pre>$kallisto bus -n -i kallisto_index_cdna/index.idx -o $out_dir/quant_cdna/ $out_dir/reads.fq</pre>
+<pre>$kallisto bus -n -i $kallisto_index -o $out_dir/quant_cdna/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_cdna/output.bus</pre>
 
 (Everything except the intron-only read, named intron, should map)
 
 #### Full cdna index plus offlist
 
-<pre>$kallisto bus -n -i kallisto_index_offlist/index.idx -o $out_dir/quant_offlist/ $out_dir/reads.fq</pre>
+<pre>$kallisto bus -n -i $kallisto_index_offlist -o $out_dir/quant_offlist/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_offlist/output.bus</pre>
 
-(Everything except the intron-only read, named intron, should map)
+(Everything except the nascent reads, intron and exon1intron and intronexon2, should map)
 
-#### Intron-only index
+#### Intron-only index (TODO)
 
 <pre>$kallisto bus -n -i kallisto_index_introns/index.idx -o $out_dir/quant_introns/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_introns/output.bus</pre>
 
 (exon1intron, intron, and intronexon2 should map)
 
-#### Lamanno index
+#### Lamanno index (TODO)
 
 <pre>$prev_kallisto bus -n -i kallisto_index_lamanno/index.idx -o $out_dir/quant_lamanno/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_lamanno/output.bus</pre>
