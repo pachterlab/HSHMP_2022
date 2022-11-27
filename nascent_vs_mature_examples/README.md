@@ -163,3 +163,12 @@ $af view --rad $out_dir/salmon_standard/map.rad</pre>
 $af view --rad $out_dir/salmon_standard_sketch/map.rad</pre>
 
 (Everything except the intron-only read, named intron, should map)
+
+#### Splici index
+
+<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_splici/ -i $salmon_index_splici --tgMap $t2gFile_salmon_splici
+$af view --rad $out_dir/salmon_splici/map.rad</pre>
+
+(exon1, exon2, and exon1exon2 will map to spliced transcripts; the nascent reads: intron, exon1intron, and intronexon2 will map to intron target: ENSG00000136997-I1)
+
+TODO: Resolve splicing origins via alevin-fry 
