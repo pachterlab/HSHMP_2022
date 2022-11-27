@@ -8,6 +8,18 @@ bustools="/home/dsullivan/bustools/build/src/bustools"
 
 salmon="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/exe/salmon_1.9.0"</pre>
 
+Paths to indices: (TODO: )
+
+<pre>main_path="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript"
+genome_name="human_CR_3.0.0"
+genome_file="$main_path/genomes/$genome_name/genome.fa"
+transcripts_file="$main_path/genomes/$genome_name/transcripts.fa"
+gtf_file="$main_path/genomes/$genome_name/annotations.gtf"
+n_threads="20"
+
+salmon_index_standard="$main_path/genomes/index/salmon_1.9.0/$genome_name/standard/index"
+</pre>
+
 <pre>nascent_fasta="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/nascent_starsolo_v2.fa"
 cdna_fasta="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/genomes/index/kallisto_0.49.0/human_CR_3.0.0/standard_1/f1"
 
@@ -99,4 +111,8 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 <pre>$bustools text -pf $out_dir/quant_lamanno/output.bus</pre>
 
 (Everything except exon1intron and intronexon2 should map)
+
+### Run salmon
+
+#### Full cdna index (aka standard)
 
