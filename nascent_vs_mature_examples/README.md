@@ -99,14 +99,14 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 (Everything except the nascent reads, intron and exon1intron and intronexon2, should map)
 
-#### Intron-only index (TODO)
+#### Intron-only index (note: uses an index from an old GTF)
 
 <pre>$kallisto bus -n -i kallisto_index_introns/index.idx -o $out_dir/quant_introns/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_introns/output.bus</pre>
 
 (exon1intron, intron, and intronexon2 should map)
 
-#### Lamanno index (TODO)
+#### Lamanno index (note: uses an index from an old GTF)
 
 <pre>$prev_kallisto bus -n -i kallisto_index_lamanno/index.idx -o $out_dir/quant_lamanno/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_lamanno/output.bus</pre>
