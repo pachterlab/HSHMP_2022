@@ -27,6 +27,8 @@ kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/st
 
 Additional kallisto indices:
 
+<pre>kallisto_index_offlist_mature="/home/kristjan/kallisto_bf_analysis/nascent_starsolo+threshold+offlist+polyA_v2.idx"</pre>
+
 <pre>nascent_fasta="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/nascent_starsolo_v2.fa"
 cdna_fasta="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/genomes/index/kallisto_0.49.0/human_CR_3.0.0/standard_1/f1"
 
@@ -38,10 +40,10 @@ kb ref --kallisto $prev_kallisto --workflow=lamanno -i $out_dir/index.idx -g $ou
 
 ## Simulations (TODO)
 
-<pre>nucleus_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R1_001.fastq.gz"
-nucleus_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_1000000_S1_L001_R2_001.fastq.gz"
-nucleus_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R1_001.fastq.gz"
-nucleus_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_4000000_S1_L001_R2_001.fastq.gz"
+<pre>nucleus_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_S1_L001_R1_001.fastq.gz"
+nucleus_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_S1_L001_R2_001.fastq.gz"
+nucleus_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_S1_L001_R1_001.fastq.gz"
+nucleus_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_S1_L001_R2_001.fastq.gz"
 
 cytoplasmic_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_S1_L001_R1_001.fastq.gz"
 cytoplasmic_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_S1_L001_R2_001.fastq.gz"
@@ -52,8 +54,10 @@ cytoplasmic_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV
 out_dir_nucleus="sim_results/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
-$kallisto bus -x 10xv3 -i $kallisto_index_offlist -o $out_dir_cytoplasmic/mature/ -t $n_threads $cytoplasmic_mature_r1 $cytoplasmic_mature_r2
-$kallisto bus -x 10xv3 -i $kallisto_index_offlist -o $out_dir_cytoplasmic/nascent/ -t $n_threads $cytoplasmic_nascent_r1 $cytoplasmic_nascent_r2
+$kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist -o $out_dir_cytoplasmic/mature/ -t $n_threads $cytoplasmic_mature_r1 $cytoplasmic_mature_r2
+$kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist -o $out_dir_cytoplasmic/nascent/ -t $n_threads $cytoplasmic_nascent_r1 $cytoplasmic_nascent_r2
+$kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist_mature -o $out_dir_nucleus/mature/ -t $n_threads $nucleus_mature_r1 $nucleus_mature_r2
+$kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist_mature -o $out_dir_nucleus/nascent/ -t $n_threads $nucleus_nascent_r1 $nucleus_nascent_r2
 </pre>
 
 ## MYC
