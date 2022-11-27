@@ -77,6 +77,32 @@ TACAGCATTAATCTGGTAATTGATTATTTTAATGTAACCTTGCTAAAGGAGTGATTTCTATTTCCTTTCTTAAAGAGGAG
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads.fq
 </pre>
 
+<pre>echo "@exon1
+GGGGGGGGGGGGGGGGAAAAAATTTTTT
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exon2
+GGGGGGGGGGGGGGGGAAAAAACCCCCC
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exon1exon2
+GGGGGGGGGGGGGGGGAAAAAAGGGGGG
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exon1intron
+GGGGGGGGGGGGGGGGTTTTTTAAAAAA
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@intron
+GGGGGGGGGGGGGGGGCCCCCCAAAAAA
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@intronexon2
+GGGGGGGGGGGGGGGGGGGGGGAAAAAA
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_umi.fq
+</pre>
+
 * Mature: exon1exon2
 * Nascent: exon1intron, intron, intronexon2
 * Ambiguous: exon1, exon2
@@ -123,4 +149,4 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 #### Full cdna index (aka standard) TODO!
 
-<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard</pre>
+<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard</pre>
