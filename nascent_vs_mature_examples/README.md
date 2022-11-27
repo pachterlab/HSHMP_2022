@@ -19,13 +19,18 @@ n_threads="20"
 
 salmon_index_standard="$main_path/genomes/index/salmon_1.9.0/$genome_name/standard/index"
 kallisto_index="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_1/index.idx"
-kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"
-</pre>
+kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"</pre>
+
+Additional kallisto indices:
 
 <pre>nascent_fasta="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/nascent_starsolo_v2.fa"
 cdna_fasta="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/genomes/index/kallisto_0.49.0/human_CR_3.0.0/standard_1/f1"
 
-$kallisto index -i kallisto_nascent_mature.idx -t 20 "$cdna_fasta" "$nascent_fasta"</pre>
+$kallisto index -i kallisto_nascent_mature.idx -t $n_threads "$cdna_fasta" "$nascent_fasta"</pre>
+
+<pre>out_dir="lamanno/"
+mkdir -p $out_dir
+kb ref --kallisto $prev_kallisto --workflow=lamanno -i $out_dir/index.idx -g $out_dir/g -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 $genome_file $gtf_file</pre>
 
 ## Simulations
 
@@ -99,14 +104,14 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 (Everything except the nascent reads, intron and exon1intron and intronexon2, should map)
 
-#### Intron-only index (note: uses an index from an old GTF)
+#### Intron-only index (TODO note: uses an index from an old GTF)
 
 <pre>$kallisto bus -n -i kallisto_index_introns/index.idx -o $out_dir/quant_introns/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_introns/output.bus</pre>
 
 (exon1intron, intron, and intronexon2 should map)
 
-#### Lamanno index (note: uses an index from an old GTF)
+#### Lamanno index (TODO note: uses an index from an old GTF)
 
 <pre>$prev_kallisto bus -n -i kallisto_index_lamanno/index.idx -o $out_dir/quant_lamanno/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_lamanno/output.bus</pre>
