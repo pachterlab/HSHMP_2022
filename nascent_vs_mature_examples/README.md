@@ -18,6 +18,7 @@ gtf_file="$main_path/genomes/$genome_name/annotations.gtf"
 n_threads="20"
 
 salmon_index_standard="$main_path/genomes/index/salmon_1.9.0/$genome_name/standard/index"
+t2gFile_salmon_standard="$main_path/genomes/$genome_name/transcript_to_gene.2col.txt"
 kallisto_index="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_1/index.idx"
 kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"</pre>
 
@@ -120,5 +121,6 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 ### Run salmon
 
-#### Full cdna index (aka standard)
+#### Full cdna index (aka standard) TODO!
 
+<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard</pre>
