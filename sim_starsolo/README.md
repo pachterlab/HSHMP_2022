@@ -138,7 +138,7 @@ echo "$runCommand" > $out_dir/splici/log150 && $runCommand &>> $out_dir/splici/l
 # Make sparse variant:
 mkdir -p $out_dir/splici_sparse
 cp -R $out_dir/splici/salmon_splici_150/ $out_dir/splici_sparse/salmon_splici_150/
-runCommand="exe/salmon_1.9.0 index -t $out_dir/splici_sparse/salmon_splici_150/splici_fl145.fa --gencode -i $out_dir/splici_sparse/index -p $n_threads --sparse"
+runCommand="exe/salmon_1.9.0 index -t $out_dir/splici_sparse/salmon_splici_150/splici_fl145.fa --gencode -i $out_dir/splici_sparse/i150 -p $n_threads --sparse"
 echo "$runCommand" > $out_dir/splici_sparse/log150 && $runCommand &>> $out_dir/splici_sparse/log150</pre>
 
 ## Cell Ranger
