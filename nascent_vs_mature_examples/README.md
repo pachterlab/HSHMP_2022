@@ -20,6 +20,8 @@ n_threads="20"
 
 salmon_index_standard="$main_path/genomes/index/salmon_1.9.0/$genome_name/standard/index"
 t2gFile_salmon_standard="$main_path/genomes/$genome_name/transcript_to_gene.2col.txt"
+salmon_index_splici="$main_path/genomes/index/salmon_1.9.0/$genome_name/splici/i150"
+t2gFile_salmon_splici="$main_path/genomes/index/salmon_1.9.0/$genome_name/splici/salmon_splici_150/splici_fl145_t2g_3col.tsv"
 kallisto_index="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_1/index.idx"
 kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1/index.idx"</pre>
 
