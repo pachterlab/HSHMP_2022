@@ -130,7 +130,7 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_umi.fq
 <pre>$kallisto bus -n -i $kallisto_index_offlist -o $out_dir/quant_offlist/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_offlist/output.bus</pre>
 
-(Everything except the nascent reads, intron and exon1intron and intronexon2, should map)
+(Only exon1, exon2, and exon1exon2 should map; none of the nascent reads: intron, exon1intron, and intronexon2 should map)
 
 #### Intron-only index (TODO note: uses an index from an old GTF)
 
@@ -148,7 +148,16 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_umi.fq
 
 ### Run salmon
 
-#### Full cdna index (aka standard) TODO!
+#### Full cdna index (aka standard)
 
 <pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard
 $af view --rad $out_dir/salmon_standard/map.rad</pre>
+
+(Only exon1, exon2, and exon1exon2 should map; none of the nascent reads: intron, exon1intron, and intronexon2 should map)
+
+#### Full cdna index (aka standard) with sketch
+
+<pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard_sketch/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard --sketch
+$af view --rad $out_dir/salmon_standard_sketch/map.rad</pre>
+
+(Everything except the intron-only read, named intron, should map)
