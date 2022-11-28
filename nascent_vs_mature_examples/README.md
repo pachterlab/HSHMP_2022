@@ -69,7 +69,7 @@ out_dir_nucleus="sim_results_salmon/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_cytoplasmic/mature/ -1 $cytoplasmic_mature_r1 -2 $cytoplasmic_mature_r2
-
+$salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_cytoplasmic/nascent/ -1 $cytoplasmic_nascent_r1 -2 $cytoplasmic_nascent_r2
 </pre>
 
 ## MYC
