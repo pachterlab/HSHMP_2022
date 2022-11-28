@@ -54,8 +54,8 @@ def process_gene(gene, scaffolds, out, nascent, mature):
         for tr, data in gene['trs'].items():
             start = min(start, min(e['start'] for e in data['exons']))
             end = max(end, max(e['end'] for e in data['exons']))
-        seq = sequence[start:end]
-        header = f'>{gene["name"]} nascent_transcript chromosome:GRCh38:{gene["scaffold"]}:{gene["start"]}:{gene["end"]} gene:{gene["name"]} strand{gene["strand"]}\n'
+        seq = reverse_complement(sequence[start:end])
+        header = f'>{gene["name"]} nascent_transcript chromosome:GRCh38:{gene["scaffold"]}:{gene["start"]}:{gene["end"]} gene:{gene["name"]} strand:{gene["strand"]}\n'
         out.write(header)
         # out.write('\n'.join([seq[i:i+80] for i in range(0, len(seq), 80)]))
         out.write(seq)
