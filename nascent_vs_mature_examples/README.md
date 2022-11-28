@@ -50,8 +50,8 @@ cytoplasmic_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3
 cytoplasmic_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_S1_L001_R1_001.fastq.gz"
 cytoplasmic_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_S1_L001_R2_001.fastq.gz"</pre>
 
-<pre>out_dir_cytoplasmic="sim_results/cytoplasmic"
-out_dir_nucleus="sim_results/nucleus"
+<pre>out_dir_cytoplasmic="sim_results_kallisto/cytoplasmic"
+out_dir_nucleus="sim_results_kallisto/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
 $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist -o $out_dir_cytoplasmic/mature/ -t $n_threads $cytoplasmic_mature_r1 $cytoplasmic_mature_r2
