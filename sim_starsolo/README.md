@@ -141,9 +141,18 @@ echo "$runCommand" > $out_dir/splici_sparse/log150 && $runCommand &>> $out_dir/s
 
 #### kallisto splici
 
+##### 91 bp
+
 <pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_splici_1"
 mkdir -p $out_dir
 splici_fasta="genomes/index/salmon_1.9.0/$genome_name/splici/salmon_splici_91/splici_fl86.fa"
+exe/kallisto_0.49.0 index -i $out_dir/index.idx -t $n_threads $splici_fasta # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!</pre>
+
+##### 150 bp
+
+<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_splici150_1"
+mkdir -p $out_dir
+splici_fasta="genomes/index/salmon_1.9.0/$genome_name/splici/salmon_splici_150/splici_fl145.fa"
 exe/kallisto_0.49.0 index -i $out_dir/index.idx -t $n_threads $splici_fasta # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!</pre>
 
 ## Cell Ranger
