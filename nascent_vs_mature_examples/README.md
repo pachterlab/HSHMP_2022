@@ -92,6 +92,10 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 @intronexon2
 TACAGCATTAATCTGGTAATTGATTATTTTAATGTAACCTTGCTAAAGGAGTGATTTCTATTTCCTTTCTTAAAGAGGAGGAACAAGAAGATGAGGAAGAAATCGATGTTGTTTCTGTGGAAAAGAGGCAGGCTCCTGGCAAAAGGTCAG
 +
+KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exonoverlapintron
+CCGCCACCGCCGGGCCCCGGCCGTCCCTGGCTCCCCTCCTGCCTCGAGAAGGGCAGGGCTTCTCAGAGGCTTGGCGGGAAAAAGAACGGAGGGAGGGATCGCGCTGAGTATAAAAGCCGGTTTTCGGGGCTTTATCTAACTCGCTGTAGT
++
 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads.fq
 </pre>
 
@@ -118,6 +122,10 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK
 @intronexon2
 GGGGGGGGGGGGGGGGGGGGGGAAAAAA
 +
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exonoverlapintron
+GGGGGGGGGGGGGGGGCCCCCCCCCCCC
++
 KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_umi.fq
 </pre>
 
@@ -143,6 +151,10 @@ GGGGGGGGGGGGGGGGAAAAAATTTTTT
 KKKKKKKKKKKKKKKKKKKKKKKKKKKK
 @intronexon2
 GGGGGGGGGGGGGGGGGGGGGGAAAAAA
++
+KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+@exonoverlapintron
+GGGGGGGGGGGGGGGGCCCCCCCCCCCC
 +
 KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_ambiguous_umi.fq
 </pre>
@@ -173,14 +185,14 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_ambiguous_umi.fq
 <pre>$kallisto bus -n -i $kallisto_index_offlist -o $out_dir/quant_offlist/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_offlist/output.bus</pre>
 
-(Only exon1, exon2, and exon1exon2 should map; none of the nascent reads: intron, exon1intron, and intronexon2 should map)
+(Only exon1, exon2, exon1exon2, and exonoverlapintron should map; none of the nascent reads: intron, exon1intron, and intronexon2 should map)
 
 #### Intron-only index (TODO note: uses an index from an old GTF)
 
 <pre>$kallisto bus -n -i kallisto_index_introns/index.idx -o $out_dir/quant_introns/ $out_dir/reads.fq</pre>
 <pre>$bustools text -pf $out_dir/quant_introns/output.bus</pre>
 
-(exon1intron, intron, and intronexon2 should map)
+(exon1intron, intron, intronexon2, and exonoverlapintron should map)
 
 #### Lamanno index
 
@@ -196,7 +208,7 @@ KKKKKKKKKKKKKKKKKKKKKKKKKKKK" > $out_dir/reads_bc_ambiguous_umi.fq
 <pre>$salmon alevin -l ISR --rad -1 $out_dir/reads_bc_umi.fq -2 $out_dir/reads.fq --chromiumV3 -p $n_threads -o $out_dir/salmon_standard/ -i $salmon_index_standard --tgMap $t2gFile_salmon_standard
 $af view --rad $out_dir/salmon_standard/map.rad</pre>
 
-(Only exon1, exon2, and exon1exon2 should map; none of the nascent reads: intron, exon1intron, and intronexon2 should map)
+(Only exon1, exon2, exon1exon2, and exonoverlapintron should map; none of the nascent reads: intron, exon1intron, and intronexon2 should map)
 
 #### Full cdna index (aka standard) with sketch
 
@@ -214,7 +226,7 @@ $af collate -t $n_threads -i $out_dir/salmon_splici/ -r $out_dir/salmon_splici/
 $af quant --resolution cr-like -t $n_threads -i $out_dir/salmon_splici/ -o $out_dir/salmon_splici/quant/ --use-mtx --tg-map $t2gFile_salmon_splici
 cat $out_dir/salmon_splici/quant/alevin/quants_mat.mtx</pre>
 
-(exon1, exon2, and exon1exon2 will map to spliced target ENSG00000136997; the nascent reads: intron, exon1intron, and intronexon2 will map to intron target: ENSG00000136997-I1, and be considered unspliced; nothing is considered ambiguous)
+(exon1, exon2, and exon1exon2 will map to spliced target ENSG00000136997; the nascent reads: intron, exon1intron, and intronexon2 will map to intron target: ENSG00000136997-I1, and be considered unspliced; exonoverlapintron is considered ambiguous)
 
 ##### Splici index + an exon/intron ambiguous UMI
 
@@ -225,4 +237,4 @@ $af collate -t $n_threads -i $out_dir/salmon_splici_ambiguous/ -r $out_dir/salmo
 $af quant --resolution cr-like -t $n_threads -i $out_dir/salmon_splici_ambiguous/ -o $out_dir/salmon_splici_ambiguous/quant/ --use-mtx --tg-map $t2gFile_salmon_splici
 cat $out_dir/salmon_splici_ambiguous/quant/alevin/quants_mat.mtx</pre>
 
-The UMI AAAAAATTTTTT, which is associated with the two reads: exon1 and intron, will be classified as "ambiguous". The remaining 4 reads are either spliced (exon2 and exon1exon2) or unspliced (exon1intron and intronexon2).
+The UMI AAAAAATTTTTT, which is associated with the two reads: exon1 and intron, will be classified as "ambiguous". The read associated with exonoverlapintron will also be classified as "ambiguous". The remaining 4 reads are either spliced (exon2 and exon1exon2) or unspliced (exon1intron and intronexon2).
