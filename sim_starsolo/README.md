@@ -76,9 +76,7 @@ exe/kallisto_0.49.0 index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS 
 
 <pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
 mkdir -p $out_dir
-cp ../extract_introns/* ./
-./generate_cDNA+introns.py --gtf <(cat $gtf_file|gzip) --fa <(cat $genome_file|gzip) --out $out_dir/introns.fa
-exe/kallisto_0.49.0 index -t 4 -b $out_dir/introns.fa -i $out_dir/index.idx genomes/index/kallisto_0.49.0/$genome_name/standard_1/f1
+exe/kallisto_0.49.0 index -t 4 -b $genome_file -i $out_dir/index.idx genomes/index/kallisto_0.49.0/$genome_name/standard_1/f1
 # ^TODO: REPLACE ABOVE WITH A KB REF COMMAND ONCE WE ALLOW OFFLIST IN KB REF
 cp genomes/index/kallisto_0.49.0/$genome_name/standard_1/g $out_dir/g
 # ^TODO: REPLACE ABOVE WITH A KB REF COMMAND ONCE WE ALLOW OFFLIST IN KB REF
