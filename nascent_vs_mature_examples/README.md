@@ -27,7 +27,7 @@ kallisto_index_offlist="$main_path/genomes/index/kallisto_0.49.0/$genome_name/st
 
 Additional kallisto indices:
 
-<pre>kallisto_index_offlist_mature="/home/kristjan/kallisto_bf_analysis/nascent_starsolo+threshold+offlist+polyA_v2.idx"</pre>
+<pre>kallisto_index_offlist_mature="/home/kristjan/kallisto_bf_analysis/nascent_starsolo+threshold+offlist+polyA.idx"</pre>
 
 <pre>nascent_fasta="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/nascent_starsolo_v2.fa"
 cdna_fasta="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript/genomes/index/kallisto_0.49.0/human_CR_3.0.0/standard_1/f1"
