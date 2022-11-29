@@ -83,6 +83,12 @@ cat $out_dir_nucleus/mature/run_info.json|grep "n_processed\|n_pseudoaligned"|cu
 cat $out_dir_nucleus/nascent/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_nucleus_nascent",$2,$1}' >> $results_file
 </pre>
 
+Extract reads (nucleus mature that are mapped):
+
+<pre>zcat < $nucleus_mature_r1|grep -B1 -f <($bustools text -p $out_dir_nucleus/mature/output.bus|cut -f1,2|tr -d '\t'|sort -u)|grep ^@ > tmp.txt
+zcat < $nucleus_mature_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > kallisto_reads_nucleus_mature_unspliced.fastq
+</pre>
+
 ### Salmon
 
 <pre>results_file="sim_results_salmon/results.txt"
@@ -105,7 +111,7 @@ printf "%s %s %s %s %s\n" "salmon_nucleus_nascent" $($af view --rad $out_dir_nuc
 Extract reads (nucleus mature that are mapped to intronic):
 
 <pre>zcat < $nucleus_mature_r1|grep -B1 -f <($af view --rad $out_dir_nucleus/mature/map.rad|grep "\-I"|cut -f4,5|sed -r 's/:/\t/g'|cut -f2,4|tr -d "\t"|sort -u)|grep ^@ > tmp.txt
-zcat < $nucleus_mature_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > reads_nucleus_mature_unspliced.fastq
+zcat < $nucleus_mature_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > salmon_reads_nucleus_mature_unspliced.fastq
 </pre>
 
 ### Salmon Sketch
