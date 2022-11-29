@@ -52,7 +52,8 @@ cytoplasmic_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV
 
 ### Kallisto
 
-<pre>out_dir_cytoplasmic="sim_results_kallisto/cytoplasmic"
+<pre>results_file="sim_results_kallisto/results.txt"
+out_dir_cytoplasmic="sim_results_kallisto/cytoplasmic"
 out_dir_nucleus="sim_results_kallisto/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
@@ -60,6 +61,12 @@ $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist -o $out_dir_cytop
 $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist -o $out_dir_cytoplasmic/nascent/ -t $n_threads $cytoplasmic_nascent_r1 $cytoplasmic_nascent_r2
 $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist_mature -o $out_dir_nucleus/mature/ -t $n_threads $nucleus_mature_r1 $nucleus_mature_r2
 $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist_mature -o $out_dir_nucleus/nascent/ -t $n_threads $nucleus_nascent_r1 $nucleus_nascent_r2
+
+touch $results_file
+cat $out_dir_cytoplasmic/mature/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_cytoplasmic_mature",$2,$1}' >> $results_file
+cat $out_dir_cytoplasmic/nascent/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_cytoplasmic_nascent",$2,$1}' >> $results_file
+cat $out_dir_nucleus/mature/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_nucleus_mature",$2,$1}' >> $results_file
+cat $out_dir_nucleus/nascent/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_nucleus_nascent",$2,$1}' >> $results_file
 </pre>
 
 ### Salmon
