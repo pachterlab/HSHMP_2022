@@ -40,14 +40,28 @@ kb ref --kallisto $prev_kallisto --workflow=lamanno -i $out_dir/index.idx -g $ou
 
 ## Simulations (TODO)
 
+### Reformat R1 files to have unique barcodes
+
 <pre>nucleus_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_S1_L001_R1_001.fastq.gz"
-nucleus_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_S1_L001_R2_001.fastq.gz"
 nucleus_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_S1_L001_R1_001.fastq.gz"
+cytoplasmic_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_S1_L001_R1_001.fastq.gz"
+cytoplasmic_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_S1_L001_R1_001.fastq.gz"
+
+paste <(zcat < $nucleus_mature_r1) <(./gen_unique_barcodes.sh $(zcat < $nucleus_mature_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > nucleus_mature_r1.fastq.gz
+paste <(zcat < $nucleus_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $nucleus_nascent_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > nucleus_nascent_r1.fastq.gz
+paste <(zcat < $cytoplasmic_mature_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_mature_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_mature_r1.fastq.gz
+paste <(zcat < $cytoplasmic_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_nascent_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_nascent_r1.fastq.gz</pre>
+
+### Set up paths
+
+<pre>nucleus_mature_r1="nucleus_mature_r1.fastq.gz"
+nucleus_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Mature_S1_L001_R2_001.fastq.gz"
+nucleus_nascent_r1="nucleus_nascent_r1.fastq.gz"
 nucleus_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/nuclear/Nascent_S1_L001_R2_001.fastq.gz"
 
-cytoplasmic_mature_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_S1_L001_R1_001.fastq.gz"
+cytoplasmic_mature_r1="cytoplasmic_mature_r1.fastq.gz"
 cytoplasmic_mature_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Mature_S1_L001_R2_001.fastq.gz"
-cytoplasmic_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_S1_L001_R1_001.fastq.gz"
+cytoplasmic_nascent_r1="cytoplasmic_nascent_r1.fastq.gz"
 cytoplasmic_nascent_r2="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV3_format/cytoplasmic/Nascent_S1_L001_R2_001.fastq.gz"</pre>
 
 ### Kallisto
