@@ -102,6 +102,12 @@ printf "%s %s %s %s %s\n" "salmon_nucleus_mature" $($af view --rad $out_dir_nucl
 printf "%s %s %s %s %s\n" "salmon_nucleus_nascent" $($af view --rad $out_dir_nucleus/nascent/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_nucleus/nascent/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_nucleus/nascent/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
 </pre>
 
+Extract reads (nucleus mature that are mapped to intronic):
+
+<pre>zcat < $nucleus_mature_r1|grep -B1 -f <($af view --rad $out_dir_nucleus/mature/map.rad|grep "\-I"|cut -f4,5|sed -r 's/:/\t/g'|cut -f2,4|tr -d "\t"|sort -u)|grep ^@ > tmp.txt
+zcat < $nucleus_mature_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > reads_nucleus_mature_unspliced.fastq
+</pre>
+
 ### Salmon Sketch
 
 <pre>results_file="sim_results_salmon_sketch/results.txt"
