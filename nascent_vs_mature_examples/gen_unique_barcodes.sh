@@ -5,7 +5,7 @@ array=("A" "T" "C" "G")
 end=$(($1/4))
 for (( x=0; x<$end; x++ ))
 do
-	echo ""
+        echo "@read"$x
 	shh=15
 	str=""
 	for i in {1..16}
@@ -15,7 +15,7 @@ do
 		str=$str$chh
 		shh=$(($shh-1))
 	done
-	echo "$str"GGGGGGGG
-	echo ""
-	echo ""
+	echo "$str"GGGGGGGGGGGG
+        echo "+"
+        echo "KKKKKKKKKKKKKKKKKKKKKKKKKKKK"
 done
