@@ -74,6 +74,18 @@ $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFi
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/nascent/ -1 $nucleus_nascent_r1 -2 $nucleus_nascent_r2
 </pre>
 
+### Salmon Sketch
+
+<pre>out_dir_cytoplasmic="sim_results_salmon_sketch/cytoplasmic"
+out_dir_nucleus="sim_results_salmon_sketch/nucleus"
+mkdir -p $out_dir_cytoplasmic
+mkdir -p $out_dir_nucleus
+$salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_cytoplasmic/mature/ -1 $cytoplasmic_mature_r1 -2 $cytoplasmic_mature_r2 --sketch
+$salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_cytoplasmic/nascent/ -1 $cytoplasmic_nascent_r1 -2 $cytoplasmic_nascent_r2 --sketch
+$salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/mature/ -1 $nucleus_mature_r1 -2 $nucleus_mature_r2 --sketch
+$salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/nascent/ -1 $nucleus_nascent_r1 -2 $nucleus_nascent_r2 --sketch
+</pre>
+
 ## MYC
 
 <pre>out_dir="myc"
