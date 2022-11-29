@@ -86,7 +86,13 @@ cat $out_dir_nucleus/nascent/run_info.json|grep "n_processed\|n_pseudoaligned"|c
 Extract reads (nucleus mature that are mapped):
 
 <pre>zcat < $nucleus_mature_r1|grep -B1 -f <($bustools text -p $out_dir_nucleus/mature/output.bus|cut -f1,2|tr -d '\t'|sort -u)|grep ^@ > tmp.txt
-zcat < $nucleus_mature_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > kallisto_reads_nucleus_mature_unspliced.fastq
+zcat < $nucleus_mature_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > kallisto_reads_nucleus_mature_mapped.fastq
+</pre>
+
+Extract reads (cytoplasmic nascent that are mapped):
+
+<pre>zcat < $cytoplasmic_nascent_r1|grep -B1 -f <($bustools text -p $out_dir_cytoplasmic/nascent/output.bus|cut -f1,2|tr -d '\t'|sort -u)|grep ^@ > tmp.txt
+zcat < $cytoplasmic_nascent_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > kallisto_reads_cytoplasmic_nascent_mapped.fastq
 </pre>
 
 ### Salmon
