@@ -62,7 +62,7 @@ $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist -o $out_dir_cytop
 $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist_mature -o $out_dir_nucleus/mature/ -t $n_threads $nucleus_mature_r1 $nucleus_mature_r2
 $kallisto bus -x 10xv3 --unstranded -i $kallisto_index_offlist_mature -o $out_dir_nucleus/nascent/ -t $n_threads $nucleus_nascent_r1 $nucleus_nascent_r2
 
-touch $results_file
+echo "sim n_reads_mapped n_reads_total" > $results_file
 cat $out_dir_cytoplasmic/mature/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_cytoplasmic_mature",$2,$1}' >> $results_file
 cat $out_dir_cytoplasmic/nascent/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_cytoplasmic_nascent",$2,$1}' >> $results_file
 cat $out_dir_nucleus/mature/run_info.json|grep "n_processed\|n_pseudoaligned"|cut -d' ' -f2|tr -d ','|xargs|awk '{print "kallisto_nucleus_mature",$2,$1}' >> $results_file
@@ -71,7 +71,8 @@ cat $out_dir_nucleus/nascent/run_info.json|grep "n_processed\|n_pseudoaligned"|c
 
 ### Salmon
 
-<pre>out_dir_cytoplasmic="sim_results_salmon/cytoplasmic"
+<pre>results_file="sim_results_salmon/results.txt"
+out_dir_cytoplasmic="sim_results_salmon/cytoplasmic"
 out_dir_nucleus="sim_results_salmon/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
@@ -79,11 +80,18 @@ $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFi
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_cytoplasmic/nascent/ -1 $cytoplasmic_nascent_r1 -2 $cytoplasmic_nascent_r2
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/mature/ -1 $nucleus_mature_r1 -2 $nucleus_mature_r2
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/nascent/ -1 $nucleus_nascent_r1 -2 $nucleus_nascent_r2
+
+echo "sim n_unspliced n_spliced n_reads_mapped n_reads_total" > $results_file
+printf "%s %s %s %s %s\n" "salmon_cytoplasmic_mature" $($af view --rad $out_dir_cytoplasmic/mature/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_cytoplasmic/mature/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_cytoplasmic/mature/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
+printf "%s %s %s %s %s\n" "salmon_cytoplasmic_nascent" $($af view --rad $out_dir_cytoplasmic/nascent/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_cytoplasmic/nascent/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_cytoplasmic/nascent/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
+printf "%s %s %s %s %s\n" "salmon_nucleus_mature" $($af view --rad $out_dir_nucleus/mature/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_nucleus/mature/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_nucleus/mature/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
+printf "%s %s %s %s %s\n" "salmon_nucleus_nascent" $($af view --rad $out_dir_nucleus/nascent/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_nucleus/nascent/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_nucleus/nascent/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
 </pre>
 
 ### Salmon Sketch
 
-<pre>out_dir_cytoplasmic="sim_results_salmon_sketch/cytoplasmic"
+<pre>results_file="sim_results_salmon_sketch/results.txt"
+out_dir_cytoplasmic="sim_results_salmon_sketch/cytoplasmic"
 out_dir_nucleus="sim_results_salmon_sketch/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
@@ -91,6 +99,12 @@ $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFi
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_cytoplasmic/nascent/ -1 $cytoplasmic_nascent_r1 -2 $cytoplasmic_nascent_r2 --sketch
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/mature/ -1 $nucleus_mature_r1 -2 $nucleus_mature_r2 --sketch
 $salmon alevin --chromiumV3 -p $n_threads -i $salmon_index_splici --tgMap $t2gFile_salmon_splici -l IU --rad -o $out_dir_nucleus/nascent/ -1 $nucleus_nascent_r1 -2 $nucleus_nascent_r2 --sketch
+
+echo "sim n_unspliced n_spliced n_reads_mapped n_reads_total" > $results_file
+printf "%s %s %s %s %s\n" "salmon_cytoplasmic_mature" $($af view --rad $out_dir_cytoplasmic/mature/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_cytoplasmic/mature/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_cytoplasmic/mature/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
+printf "%s %s %s %s %s\n" "salmon_cytoplasmic_nascent" $($af view --rad $out_dir_cytoplasmic/nascent/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_cytoplasmic/nascent/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_cytoplasmic/nascent/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
+printf "%s %s %s %s %s\n" "salmon_nucleus_mature" $($af view --rad $out_dir_nucleus/mature/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_nucleus/mature/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_nucleus/mature/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
+printf "%s %s %s %s %s\n" "salmon_nucleus_nascent" $($af view --rad $out_dir_nucleus/nascent/map.rad|grep "\-I"|cut -f4,5|sort -u|wc -l) $($af view --rad $out_dir_nucleus/nascent/map.rad|grep -v "\-I"|cut -f4,5|sort -u|wc -l) $(cat $out_dir_nucleus/nascent/aux_info/meta_info.json|grep "num_processed\|num_mapped"|cut -d':' -f2|tr -d ','|xargs|awk '{print $2,$1}') >> $results_file
 </pre>
 
 ## MYC
