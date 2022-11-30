@@ -53,7 +53,17 @@ cytoplasmic_nascent_r1="/home/kristjan/kallisto_bf_analysis/simulated_reads/10xV
 paste <(zcat < $nucleus_mature_r1) <(./gen_unique_barcodes.sh $(zcat < $nucleus_mature_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > nucleus_mature_r1.fastq.gz
 paste <(zcat < $nucleus_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $nucleus_nascent_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > nucleus_nascent_r1.fastq.gz
 paste <(zcat < $cytoplasmic_mature_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_mature_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_mature_r1.fastq.gz
-paste <(zcat < $cytoplasmic_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_nascent_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_nascent_r1.fastq.gz</pre>
+paste <(zcat < $cytoplasmic_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_nascent_r1|wc -l))|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_nascent_r1.fastq.gz
+
+# FOR STAR WHICH REQUIRES UNIQUE UMIS:
+
+paste <(zcat < $nucleus_mature_r1) <(./gen_unique_barcodes.sh $(zcat < $nucleus_mature_r1|wc -l) TRUE)|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > nucleus_mature_r1_.fastq.gz
+paste <(zcat < $nucleus_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $nucleus_nascent_r1|wc -l) TRUE)|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > nucleus_nascent_r1_.fastq.gz
+paste <(zcat < $cytoplasmic_mature_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_mature_r1|wc -l) TRUE)|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_mature_r1_.fastq.gz
+paste <(zcat < $cytoplasmic_nascent_r1) <(./gen_unique_barcodes.sh $(zcat < $cytoplasmic_nascent_r1|wc -l) TRUE)|awk '{if(NR%2==0) {print $2} else {print $1} }'|gzip > cytoplasmic_nascent_r1_.fastq.gz
+
+
+</pre>
 
 ### Set up paths
 
