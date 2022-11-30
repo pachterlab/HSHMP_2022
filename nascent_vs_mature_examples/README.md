@@ -105,7 +105,7 @@ out_dir_cytoplasmic="sim_results_star/cytoplasmic"
 out_dir_nucleus="sim_results_star/nucleus"
 mkdir -p $out_dir_cytoplasmic
 mkdir -p $out_dir_nucleus
-$star --genomeDir $star_index --runThreadN $n_threads --readFilesCommand zcat --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup Exact --soloUMIfiltering MultiGeneUMI_All --soloMultiMappers Uniform Rescue PropUnique EM --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloCBwhitelist None --outFileNamePrefix $out_dir_cytoplasmic/mature/ --readFilesIn $cytoplasmic_mature_r2 $cytoplasmic_mature_r1
+$star --genomeDir $star_index --runThreadN $n_threads --readFilesCommand zcat --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --soloMultiMappers Uniform Rescue PropUnique EM --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull SJ Velocyto --soloCBwhitelist None --outFileNamePrefix $out_dir_cytoplasmic/mature/ --readFilesIn $cytoplasmic_mature_r2 $cytoplasmic_mature_r1
 </pre>
 
 ### Salmon
