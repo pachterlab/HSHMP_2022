@@ -2,9 +2,9 @@
 
 ## Download mouse references
 
-<pre>wget --continue https://ftp.ensembl.org/pub/release-108/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna_sm.primary_assembly.fa.gz
+<pre>wget --continue https://ftp.ensembl.org/pub/release-108/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
 wget --continue https://ftp.ensembl.org/pub/release-108/gtf/mus_musculus/Mus_musculus.GRCm39.108.gtf.gz
-gunzip Mus_musculus.GRCm39.dna_sm.primary_assembly.fa.gz
+gunzip Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
 gunzip Mus_musculus.GRCm39.108.gtf.gz</pre>
 
 
@@ -25,7 +25,7 @@ Paths to indices:
 <pre>main_path="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript"
 genome_name="human_CR_3.0.0"
 genome_file="$main_path/genomes/$genome_name/genome.fa"
-mouse_genome_file="Mus_musculus.GRCm39.dna_sm.primary_assembly.fa"
+mouse_genome_file="Mus_musculus.GRCm39.dna.primary_assembly.fa"
 mouse_gtf_file="Mus_musculus.GRCm39.108.gtf"
 mouse_genome_name="mouse_CR"
 transcripts_file="$main_path/genomes/$genome_name/transcripts.fa"
