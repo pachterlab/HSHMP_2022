@@ -65,8 +65,8 @@ $kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.id
 
 <pre>data_files="data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L001_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L001_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L002_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L002_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L003_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L003_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L004_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L004_R2_001.fastq.gz"</pre>
 
-<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_standard.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 $data_files  1> sc_mouse_brain_kallisto_standard_stdout.txt 2> sc_mouse_brain_kallisto_standard_stderr.txt</pre>
+<pre>/usr/bin/time -v kb count --overwrite --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_standard.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 $data_files  1> sc_mouse_brain_kallisto_standard_stdout.txt 2> sc_mouse_brain_kallisto_standard_stderr.txt</pre>
 
-<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_offlist.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 $data_files  1> sc_mouse_brain_kallisto_offlist_stdout.txt 2> sc_mouse_brain_kallisto_offlist_stderr.txt</pre>
+<pre>/usr/bin/time -v kb count --overwrite --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_offlist.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 $data_files  1> sc_mouse_brain_kallisto_offlist_stdout.txt 2> sc_mouse_brain_kallisto_offlist_stderr.txt</pre>
 
 
