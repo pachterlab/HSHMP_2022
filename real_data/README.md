@@ -77,6 +77,27 @@ $salmon index -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/spl
 $salmon index -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici_sparse/index -p $n_threads
 </pre>
 
+## Salmon run
+
+<pre>data_files="-1 data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L001_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L002_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L003_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L004_R1_001.fastq.gz -2 data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L001_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L002_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L003_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L004_R2_001.fastq.gz"</pre>
+
+<pre>
+data_files_nuc="-1 data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L001_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L002_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L003_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L004_R1_001.fastq.gz -2 data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L001_R2_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L002_R2_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L003_R2_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L004_R2_001.fastq.gz"
+</pre>
+
+
+
+<pre>out="sc_mouse_brain_salmon_splici_cr_like/"
+mkdir -p $out
+t2g="salmon_index_mouse/splici/salmon_splici_90/splici_fl85_t2g_3col.tsv"
+$salmon alevin --chromiumV3 -p $n_threads -l IU -i salmon_index_mouse/splici/index --tgMap $t2g --rad -o $out $data_files
+$af generate-permit-list -d fw --knee-distance -i $out -o $out
+$af collate -t $n_threads -i $out -r $out
+$af quant --resolution cr-like -t 20 -i $out -o $out --use-mtx --tg-map $t2g
+
+/usr/bin/time -v sh -c '$salmon alevin --chromiumV3 -p $n_threads -l IU -i salmon_index_mouse/splici/index --tgMap $t2g --rad -o $out $data_files && $af generate-permit-list -d fw --knee-distance -i $out -o $out && $af collate -t $n_threads -i $out -r $out && $af quant --resolution cr-like -t 20 -i $out -o $out --use-mtx --tg-map $t2g 1> sc_salmon_splici_cr_like_stdout.txt 2> sc_salmon_splici_cr_like_stderr.txt'
+</pre>
+
 ## CellRanger Run
 
 <pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt
@@ -103,11 +124,11 @@ data_files_nuc="data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5
 </pre>
 
 
-<pre>/usr/bin/time -v $star --genomeDir star_index_mouse/fullSA/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --soloUMIdedup Exact --soloUMIfiltering MultiGeneUMI_All --clipAdapterType CellRanger4 --soloMultiMappers Uniform Rescue PropUnique EM --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outFileNamePrefix sc_mouse_brain_star_full/ 1> sc_mouse_brain_star_full_stdout.txt 2> sc_mouse_brain_star_full_stderr.txt
+<pre>/usr/bin/time -v $star --genomeDir star_index_mouse/fullSA/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --outFileNamePrefix sc_mouse_brain_star_full/ 1> sc_mouse_brain_star_full_stdout.txt 2> sc_mouse_brain_star_full_stderr.txt
 
-/usr/bin/time -v $star --genomeDir star_index_mouse/sparseSA3/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --soloUMIdedup Exact --soloUMIfiltering MultiGeneUMI_All --clipAdapterType CellRanger4 --soloMultiMappers Uniform Rescue PropUnique EM --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outFileNamePrefix sc_mouse_brain_star_sparse/ 1> sc_mouse_brain_star_sparse_stdout.txt 2> sc_mouse_brain_star_sparse_stderr.txt</pre>
+/usr/bin/time -v $star --genomeDir star_index_mouse/sparseSA3/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --outFileNamePrefix sc_mouse_brain_star_sparse/ 1> sc_mouse_brain_star_sparse_stdout.txt 2> sc_mouse_brain_star_sparse_stderr.txt</pre>
 
-<pre>/usr/bin/time -v $star --genomeDir star_index_mouse/fullSA/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files_nuc --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --soloUMIdedup Exact --soloUMIfiltering MultiGeneUMI_All --clipAdapterType CellRanger4 --soloMultiMappers Uniform Rescue PropUnique EM --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outFileNamePrefix sn_mouse_brain_star_full/ 1> sn_mouse_brain_star_full_stdout.txt 2> sn_mouse_brain_star_full_stderr.txt
+<pre>/usr/bin/time -v $star --genomeDir star_index_mouse/fullSA/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files_nuc --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --outFileNamePrefix sn_mouse_brain_star_full/ 1> sn_mouse_brain_star_full_stdout.txt 2> sn_mouse_brain_star_full_stderr.txt
 
-/usr/bin/time -v $star --genomeDir star_index_mouse/sparseSA3/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files_nuc --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --soloUMIdedup Exact --soloUMIfiltering MultiGeneUMI_All --clipAdapterType CellRanger4 --soloMultiMappers Uniform Rescue PropUnique EM --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outFileNamePrefix sn_mouse_brain_star_sparse/ 1> sn_mouse_brain_star_sparse_stdout.txt 2> sn_mouse_brain_star_sparse_stderr.txt</pre>
+/usr/bin/time -v $star --genomeDir star_index_mouse/sparseSA3/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files_nuc --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --outFileNamePrefix sn_mouse_brain_star_sparse/ 1> sn_mouse_brain_star_sparse_stdout.txt 2> sn_mouse_brain_star_sparse_stderr.txt</pre>
 
