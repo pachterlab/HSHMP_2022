@@ -73,8 +73,8 @@ mkdir -p $out_dir/splici_sparse
 pyroe make-splici "$mouse_genome_file" "$mouse_gtf_file" 90 $out_dir/splici/salmon_splici_90 --flank-trim-length 5 --filename-prefix splici
 $salmon index --keepDuplicates -t kallisto_index_mouse/f1 -i $out_dir/standard/index -p $n_threads
 $salmon index --keepDuplicates -t kallisto_index_mouse/f1 -i $out_dir/standard_sparse/index -p $n_threads --sparse
-$salmon index --keepDuplicates -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici/index -p $n_threads"
-$salmon index --keepDuplicates -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici_sparse/index -p $n_threads"
+$salmon index -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici/index -p $n_threads
+$salmon index -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici_sparse/index -p $n_threads
 </pre>
 
 ## CellRanger Run
