@@ -65,6 +65,18 @@ $star --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/full
 $star --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/sparseSA3 --genomeSAsparseD 3 --genomeFastaFiles $mouse_genome_file --sjdbGTFfile $mouse_gtf_file > $out_dir/sparseSA3/log.txt 2>&1
 </pre>
 
+<pre>out_dir="salmon_index_mouse"
+mkdir -p $out_dir/standard
+mkdir -p $out_dir/standard_sparse
+mkdir -p $out_dir/splici
+mkdir -p $out_dir/splici_sparse
+pyroe make-splici "$mouse_genome_file" "$mouse_gtf_file" 90 $out_dir/splici/salmon_splici_90 --flank-trim-length 5 --filename-prefix splici
+$salmon index --keepDuplicates -t kallisto_index_mouse/f1 -i $out_dir/standard/index -p $n_threads
+$salmon index --keepDuplicates -t kallisto_index_mouse/f1 -i $out_dir/standard_sparse/index -p $n_threads --sparse
+$salmon index --keepDuplicates -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici/index -p $n_threads"
+$salmon index --keepDuplicates -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/splici_sparse/index -p $n_threads"
+</pre>
+
 ## CellRanger Run
 
 <pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt
