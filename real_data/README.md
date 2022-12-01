@@ -1,5 +1,13 @@
 <pre>cd /home/dsullivan/benchmarking/kristjan/</pre>
 
+## Download mouse references
+
+<pre>wget --continue https://ftp.ensembl.org/pub/release-108/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna_sm.primary_assembly.fa.gz
+wget --continue https://ftp.ensembl.org/pub/release-108/gtf/mus_musculus/Mus_musculus.GRCm39.108.gtf.gz
+gunzip Mus_musculus.GRCm39.dna_sm.primary_assembly.fa.gz
+gunzip Mus_musculus.GRCm39.108.gtf.gz</pre>
+
+
 <pre>kallisto="/home/dsullivan/benchmarking/kristjan/kallisto-bf/build/src/kallisto"
 prev_kallisto="/home/dsullivan/kallisto/build/src/kallisto"
 bustools="/home/dsullivan/bustools/build/src/bustools"
@@ -17,6 +25,9 @@ Paths to indices:
 <pre>main_path="/home/dsullivan/benchmarking/starsolo/STARsoloManuscript"
 genome_name="human_CR_3.0.0"
 genome_file="$main_path/genomes/$genome_name/genome.fa"
+mouse_genome_file="Mus_musculus.GRCm39.dna_sm.primary_assembly.fa"
+mouse_gtf_file="Mus_musculus.GRCm39.108.gtf"
+mouse_genome_name="mouse_CR"
 transcripts_file="$main_path/genomes/$genome_name/transcripts.fa"
 gtf_file="$main_path/genomes/$genome_name/annotations.gtf"
 n_threads="20"
@@ -34,9 +45,10 @@ star_index="$main_path/genomes/index/STAR_2.7.9a/human_CR_3.0.0/fullSA/"</pre>
 <pre>mkdir -p data
 ln -s /home/kristjan/data/liver_andrews/ ./data/</pre>
 
+
 ## CellRanger7 Index
 
-<pre>$cellranger mkref --genome=$genome_name --fasta=$genome_file --genes=$gtf_file --nthreads=$n_threads</pre>
+<pre>$cellranger mkref --genome=$mouse_genome_name --fasta=$mouse_genome_file --genes=$mouse_gtf_file --nthreads=$n_threads</pre>
 
 ## CellRanger Run
 
