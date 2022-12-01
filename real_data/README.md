@@ -95,7 +95,7 @@ $af generate-permit-list -d fw --knee-distance -i $out -o $out
 $af collate -t $n_threads -i $out -r $out
 $af quant --resolution cr-like -t 20 -i $out -o $out --use-mtx --tg-map $t2g
 
-/usr/bin/time -v sh -c '$salmon alevin --chromiumV3 -p $n_threads -l IU -i salmon_index_mouse/splici/index --tgMap $t2g --rad -o $out $data_files && $af generate-permit-list -d fw --knee-distance -i $out -o $out && $af collate -t $n_threads -i $out -r $out && $af quant --resolution cr-like -t 20 -i $out -o $out --use-mtx --tg-map $t2g 1> sc_salmon_splici_cr_like_stdout.txt 2> sc_salmon_splici_cr_like_stderr.txt'
+/usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3 $4 && $5 generate-permit-list -d fw --knee-distance -i $3 -o $3 && $5 collate -t $1 -i $3 -r $3 && $5 quant --resolution cr-like -t $1 -i $3 -o $3 --use-mtx --tg-map $2 1> sc_salmon_splici_cr_like_stdout.txt 2> sc_salmon_splici_cr_like_stderr.txt' $salmon $n_threads $t2g $out "$data_files" $af
 </pre>
 
 ## CellRanger Run
