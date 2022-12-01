@@ -87,15 +87,49 @@ data_files_nuc="-1 data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nucle
 
 
 
-<pre>out="sc_mouse_brain_salmon_splici_cr_like"
-mkdir -p $out
-t2g="salmon_index_mouse/splici/salmon_splici_90/splici_fl85_t2g_3col.tsv"
-$salmon alevin --chromiumV3 -p $n_threads -l IU -i salmon_index_mouse/splici/index --tgMap $t2g --rad -o $out/ $data_files
-$af generate-permit-list -d fw --knee-distance -i $out/ -o $out/
-$af collate -t $n_threads -i $out/ -r $out/
-$af quant --resolution cr-like -t 20 -i $out/ -o $out/ --use-mtx --tg-map $t2g
+<pre>t2g="salmon_index_mouse/splici/salmon_splici_90/splici_fl85_t2g_3col.tsv"
 
+out="sc_mouse_brain_salmon_splici_cr_like"
+mkdir -p $out
 /usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+out="sn_mouse_brain_salmon_splici_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files_nuc" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+
+out="sc_mouse_brain_salmon_splici_sketch_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --sketch --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+out="sn_mouse_brain_salmon_splici_sketch_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --sketch --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files_nuc" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+
+out="sc_mouse_brain_salmon_splici_cr_like_em"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like-em -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+out="sn_mouse_brain_salmon_splici_cr_like_em"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like-em -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files_nuc" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+
+SPARSE:
+
+out="sc_mouse_brain_salmon_sparse_splici_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici_sparse/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+out="sn_mouse_brain_salmon_sparse_splici_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici_sparse/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files_nuc" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+
+out="sc_mouse_brain_salmon_sparse_splici_sketch_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --sketch --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici_sparse/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+out="sn_mouse_brain_salmon_sparse_splici_sketch_cr_like"
+mkdir -p $out
+/usr/bin/time -v sh -c '$0 alevin --sketch --chromiumV3 -p $1 -l IU -i salmon_index_mouse/splici_sparse/index --tgMap $2 --rad -o $3/ $4 && $5 generate-permit-list -d fw --knee-distance -i $3/ -o $3/ && $5 collate -t $1 -i $3/ -r $3/ && $5 quant --resolution cr-like -t $1 -i $3/ -o $3/ --use-mtx --tg-map $2' $salmon $n_threads $t2g $out "$data_files_nuc" $af  1> "$out"_stdout.txt 2> "$out"_stderr.txt
+
+
+
+TODO: CR-LIKE-EM, SPARSE, STANDARD
+
 </pre>
 
 ## CellRanger Run
