@@ -62,8 +62,8 @@ $kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.id
 
 ## Kallisto Run
 
-<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -i $out_dir/index_standard.idx -t $n_threads -x 10XV3 --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_kallisto_standard_stdout.txt 2> sc_mouse_brain_kallisto_standard_stderr.txt</pre>
+<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_standard.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_kallisto_standard_stdout.txt 2> sc_mouse_brain_kallisto_standard_stderr.txt</pre>
 
-<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -i $out_dir/index_offlist.idx -t $n_threads -x 10XV3 --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_kallisto_offlist_stdout.txt 2> sc_mouse_brain_kallisto_offlist_stderr.txt</pre>
+<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_offlist.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_kallisto_offlist_stdout.txt 2> sc_mouse_brain_kallisto_offlist_stderr.txt</pre>
 
 
