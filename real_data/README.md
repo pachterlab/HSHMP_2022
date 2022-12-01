@@ -58,6 +58,14 @@ $kallisto index -i $out_dir/index_standard.idx $out_dir/f1 # TODO: DELETE THIS O
 $kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.idx $out_dir/f1
 $kallisto index -t $n_threads -b $out_dir/f1 -i $out_dir/index_nucleus.idx $mouse_nascent_genome_file</pre>
 
+<pre>out_dir="star_index_mouse"
+mkdir -p $out_dir/fullSA
+mkdir -p $out_dir/sparseSA3
+$star --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/fullSA --genomeFastaFiles $mouse_genome_file --sjdbGTFfile $mouse_gtf_file > $out_dir/fullSA/log.txt 2>&1
+mkdir -p $out_dir/sparseSA3
+$star --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/sparseSA3 --genomeSAsparseD 3 --genomeFastaFiles $mouse_genome_file --sjdbGTFfile $mouse_gtf_file > $out_dir/sparseSA3/log.txt 2>&1
+</pre>
+
 ## CellRanger Run
 
 <pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt
