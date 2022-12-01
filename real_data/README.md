@@ -62,7 +62,6 @@ $kallisto index -t $n_threads -b $out_dir/f1 -i $out_dir/index_nucleus.idx $mous
 mkdir -p $out_dir/fullSA
 mkdir -p $out_dir/sparseSA3
 $star --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/fullSA --genomeFastaFiles $mouse_genome_file --sjdbGTFfile $mouse_gtf_file > $out_dir/fullSA/log.txt 2>&1
-mkdir -p $out_dir/sparseSA3
 $star --runMode genomeGenerate --runThreadN $n_threads --genomeDir $out_dir/sparseSA3 --genomeSAsparseD 3 --genomeFastaFiles $mouse_genome_file --sjdbGTFfile $mouse_gtf_file > $out_dir/sparseSA3/log.txt 2>&1
 </pre>
 
