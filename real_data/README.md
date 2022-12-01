@@ -58,7 +58,8 @@ $kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.id
 
 ## CellRanger Run
 
-<pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt</pre>
+<pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt
+/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_nuc_10x_5k_fastqs/ --id sn_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sn_mouse_brain_cellranger7_stdout.txt 2> sn_mouse_brain_cellranger7_stderr.txt</pre>
 
 ## Kallisto Run
 
