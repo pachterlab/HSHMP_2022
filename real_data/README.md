@@ -28,6 +28,7 @@ genome_file="$main_path/genomes/$genome_name/genome.fa"
 mouse_genome_file="Mus_musculus.GRCm39.dna.primary_assembly.fa"
 mouse_gtf_file="Mus_musculus.GRCm39.108.gtf"
 mouse_genome_name="mouse_CR"
+mouse_nascent_genome_file="/home/kristjan/kallisto_bf_analysis/partial_transcriptomes/mus_musculus_nascent_v2.fa"
 transcripts_file="$main_path/genomes/$genome_name/transcripts.fa"
 gtf_file="$main_path/genomes/$genome_name/annotations.gtf"
 n_threads="20"
@@ -54,7 +55,8 @@ ln -s /home/ggorin/datasets/ ./data/</pre>
 mkdir -p $out_dir
 kb ref -i $out_dir/index.idx --kallisto $kallisto --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $mouse_genome_file $mouse_gtf_file > $out_dir/log.txt 2>&1
 $kallisto index -i $out_dir/index_standard.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!
-$kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.idx $out_dir/f1</pre>
+$kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.idx $out_dir/f1
+$kallisto index -t $n_threads -b $out_dir/f1 -i $out_dir/index_nucleus.idx $mouse_nascent_genome_file</pre>
 
 ## CellRanger Run
 
