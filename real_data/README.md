@@ -43,7 +43,7 @@ star_index="$main_path/genomes/index/STAR_2.7.9a/human_CR_3.0.0/fullSA/"</pre>
 ## Link data
 
 <pre>mkdir -p data
-ln -s /home/kristjan/data/liver_andrews/ ./data/</pre>
+ln -s /home/ggorin/datasets/ ./data/</pre>
 
 
 ## CellRanger7 Index
@@ -52,4 +52,4 @@ ln -s /home/kristjan/data/liver_andrews/ ./data/</pre>
 
 ## CellRanger Run
 
-<pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/liver_andrews/sc/ --sample SRR16227561,SRR16227562,SRR16227563,SRR16227564,SRR16227565,SRR16227566,SRR16227567,SRR16227568,SRR16227569,SRR16227571,SRR16227572,SRR16227573,SRR16227574,SRR16227575,SRR16227576,SRR16227578,SRR16227579,SRR16227580,SRR16227581,SRR16227582,SRR16227583 --id sc_liver_cellranger7 --transcriptome human_CR_3.0.0  1> sc_liver_cellranger7_stdout.txt 2> sc_liver_cellranger7_stderr.txt</pre>
+<pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt</pre>
