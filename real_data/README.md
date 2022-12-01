@@ -46,10 +46,21 @@ star_index="$main_path/genomes/index/STAR_2.7.9a/human_CR_3.0.0/fullSA/"</pre>
 ln -s /home/ggorin/datasets/ ./data/</pre>
 
 
-## CellRanger7 Index
+## Generate Mouse Indexes
 
 <pre>$cellranger mkref --genome=$mouse_genome_name --fasta=$mouse_genome_file --genes=$mouse_gtf_file --nthreads=$n_threads</pre>
+
+<pre>out_dir="kallisto_index_mouse"
+mkdir -p $out_dir
+kb ref -i $out_dir/index.idx --kallisto $kallisto --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $mouse_genome_file $mouse_gtf_file > $out_dir/log.txt 2>&1
+$kallisto index -i $out_dir/index_standard.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!
+$kallisto index -t $n_threads -b $mouse_genome_file -i $out_dir/index_offlist.idx $out_dir/f1</pre>
 
 ## CellRanger Run
 
 <pre>/usr/bin/time -v $cellranger count --localcores $n_threads --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_cellranger7_stdout.txt 2> sc_mouse_brain_cellranger7_stderr.txt</pre>
+
+## Kallisto Run
+
+<pre>/usr/bin/time -v kb count --kallisto $kallisto --bustools $bustools -t $n_threads -x 10XV3 --fastqs data/datasets/brain_10x_5k_fastqs/ --id sc_mouse_brain_cellranger7 --transcriptome $mouse_genome_name  1> sc_mouse_brain_kallisto_stdout.txt 2> sc_mouse_brain_kallisto_stderr.txt</pre>
+
