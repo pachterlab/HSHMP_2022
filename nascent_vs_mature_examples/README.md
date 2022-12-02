@@ -113,7 +113,21 @@ Extract reads (cytoplasmic nascent that are mapped):
 zcat < $cytoplasmic_nascent_r2|grep -A3 -f tmp.txt|grep -v ^\-\- > kallisto_reads_cytoplasmic_nascent_mapped.fastq
 </pre>
 
-### STAR
+### STAR Gene (TODO)
+
+<pre>results_file="sim_results_star_gene/results.txt"
+out_dir_cytoplasmic="sim_results_star_gene/cytoplasmic"
+out_dir_nucleus="sim_results_star_gene/nucleus"
+mkdir -p $out_dir_cytoplasmic
+mkdir -p $out_dir_nucleus
+$star --genomeDir $star_index --runThreadN $n_threads --readFilesCommand zcat --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir_cytoplasmic/mature/ --soloCellFilter None --soloStrand Unstranded --readFilesIn $cytoplasmic_mature_r2 cytoplasmic_mature_r1__.fastq.gz
+$star --genomeDir $star_index --runThreadN $n_threads --readFilesCommand zcat --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir_cytoplasmic/nascent/ --soloCellFilter None --soloStrand Unstranded --readFilesIn $cytoplasmic_nascent_r2 cytoplasmic_nascent_r1__.fastq.gz
+$star --genomeDir $star_index --runThreadN $n_threads --readFilesCommand zcat --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir_nucleus/mature/ --soloCellFilter None --soloStrand Unstranded --readFilesIn $nucleus_mature_r2 nucleus_mature_r1__.fastq.gz
+$star --genomeDir $star_index --runThreadN $n_threads --readFilesCommand zcat --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir_nucleus/nascent/ --soloCellFilter None --soloStrand Unstranded --readFilesIn $nucleus_nascent_r2 nucleus_nascent_r1__.fastq.gz
+</pre>
+
+
+### STAR Velocyto
 
 <pre>results_file="sim_results_star/results.txt"
 out_dir_cytoplasmic="sim_results_star/cytoplasmic"
