@@ -84,6 +84,8 @@ $salmon index -t $out_dir/splici/salmon_splici_90/splici_fl85.fa -i $out_dir/spl
 
 ## Kallisto Run
 
+<pre>paste <(cat kallisto_index_mouse/g|cut -f2|cut -d. -f1) <(cat kallisto_index_mouse/g|cut -f2|cut -d. -f1) > kallisto_index_mouse/g_</pre>
+
 <pre>data_files="data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L001_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L001_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L002_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L002_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L003_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L003_R2_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L004_R1_001.fastq.gz data/datasets/brain_10x_5k_fastqs/SC3_v3_NextGem_DI_Neurons_5K_gex_S3_L004_R2_001.fastq.gz"
 
 data_files_nuc="data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L001_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L001_R2_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L002_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L002_R2_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L003_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L003_R2_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L004_R1_001.fastq.gz data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5K_gex_S6_L004_R2_001.fastq.gz"</pre>
@@ -92,7 +94,7 @@ data_files_nuc="data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5
 /usr/bin/time -v kb count --overwrite --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_standard.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 -o sn_mouse_brain_kallisto_standard/ $data_files_nuc  1> sn_mouse_brain_kallisto_standard_stdout.txt 2> sn_mouse_brain_kallisto_standard_stderr.txt</pre>
 
 <pre>/usr/bin/time -v kb count --overwrite --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_offlist.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 -o sc_mouse_brain_kallisto_offlist/ $data_files 1> sc_mouse_brain_kallisto_offlist_stdout.txt 2> sc_mouse_brain_kallisto_offlist_stderr.txt
-/usr/bin/time -v kb count --overwrite --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_nucleus.idx -g kallisto_index_mouse/g -t $n_threads -x 10XV3 -o sn_mouse_brain_kallisto_offlist/ $data_files_nuc 1> sn_mouse_brain_kallisto_offlist_stdout.txt 2> sn_mouse_brain_kallisto_offlist_stderr.txt</pre>
+/usr/bin/time -v kb count --overwrite --kallisto $kallisto --bustools $bustools -i kallisto_index_mouse/index_nucleus.idx -g kallisto_index_mouse/g_ -t $n_threads -x 10XV3 -o sn_mouse_brain_kallisto_offlist/ $data_files_nuc 1> sn_mouse_brain_kallisto_offlist_stdout.txt 2> sn_mouse_brain_kallisto_offlist_stderr.txt</pre>
 
 ## Salmon run
 
