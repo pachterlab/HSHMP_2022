@@ -167,7 +167,14 @@ data_files_nuc="data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5
 
 ### kallisto
 
-<pre>f="sn_mouse_brain_kallisto_offlist_stderr.txt"
-cat $f|grep "Using index\|Sorting BUS"|head -2|cut -c 13-20|awk -F: '{ print ($1 * 3600) + ($2 * 60) + $3 }'|awk 'NR > 1 { print $0 - first } { first = $0 }'
-cat $f|grep Elapsed|cut -d' ' -f8|cut -d. -f1|awk -F: '{ print ($1 * 60) + $2 }'
+<pre>
+echo "program_run"$'\t'"map"$'\t'"other"$'\t'"memory" > kallisto_performance.txt
+for f in *kallisto*stderr.txt; do
+fname=$(echo $f|sed s/_stderr.txt//i)
+tmap=$(cat $f|grep "Using index\|Sorting BUS"|head -2|cut -c 13-20|awk -F: '{ print ($1 * 3600) + ($2 * 60) + $3 }'|awk 'NR > 1 { print $0 - first } { first = $0 }')
+ttotal=$(cat $f|grep Elapsed|cut -d' ' -f8|cut -d. -f1|awk -F: '{ print ($1 * 60) + $2 }')
+tother=$(($ttotal-$tmap))
+memkb=$(cat $f|grep "Maximum resident set size"|cut -d':' -f2|tr -d ' ')
+echo "$fname"$'\t'"$tmap"$'\t'"$tother"$'\t'"$memkb" >> kallisto_performance.txt
+done
 </pre>
