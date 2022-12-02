@@ -201,7 +201,7 @@ done
 
 <pre>
 echo "program_run"$'\t'"map"$'\t'"other"$'\t'"memory" > star_performance.txt
-for f in *salmon*stderr.txt; do
+for f in *star*stderr.txt; do
 fname=$(echo $f|sed s/_stderr.txt//i)
 ttotal=$(cat $f|grep Elapsed|cut -d' ' -f8|cut -d. -f1|awk -F: '{ print ($1 * 60) + $2 }')
 memkb=$(cat $f|grep "Maximum resident set size"|cut -d':' -f2|tr -d ' ')
