@@ -160,3 +160,12 @@ data_files_nuc="data/datasets/brain_nuc_10x_5k_fastqs/SC3_v3_NextGem_DI_Nuclei_5
 
 /usr/bin/time -v $star --genomeDir star_index_mouse/sparseSA3/ --runThreadN $n_threads --readFilesCommand zcat --readFilesIn $data_files_nuc --soloCBwhitelist sc_mouse_brain_kallisto_offlist/10x_version3_whitelist.txt --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype None --outFileNamePrefix sn_mouse_brain_star_sparse/ 1> sn_mouse_brain_star_sparse_stdout.txt 2> sn_mouse_brain_star_sparse_stderr.txt</pre>
 
+
+## Extract runtimes and memory
+
+### kallisto
+
+<pre>f="sn_mouse_brain_kallisto_offlist_stderr.txt"
+cat $f|grep "Using index\|Sorting BUS"|head -2|cut -c 13-20|awk -F: '{ print ($1 * 3600) + ($2 * 60) + $3 }'|awk 'NR > 1 { print $0 - first } { first = $0 }'
+cat $f|grep Elapsed|cut -d' ' -f8|cut -d. -f1|awk -F: '{ print ($1 * 60) + $2 }'
+</pre>
