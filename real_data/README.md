@@ -209,3 +209,15 @@ tother=0
 echo "$fname"$'\t'"$ttotal"$'\t'"$tother"$'\t'"$memkb" >> star_performance.txt
 done
 </pre>
+
+
+<pre>
+echo "program_run"$'\t'"map"$'\t'"other"$'\t'"memory" > cellranger_performance.txt
+for f in *cellranger*stderr.txt; do
+fname=$(echo $f|sed s/_stderr.txt//i)
+ttotal=$(cat $f|grep Elapsed|cut -d' ' -f8|cut -d. -f1|awk -F: '{ print ($1 * 60) + $2 }')
+memkb=$(cat $f|grep "Maximum resident set size"|cut -d':' -f2|tr -d ' ')
+tother=0
+echo "$fname"$'\t'"$ttotal"$'\t'"$tother"$'\t'"$memkb" >> cellranger_performance.txt
+done
+</pre>
