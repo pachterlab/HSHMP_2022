@@ -406,3 +406,10 @@ cat $out_dir/star7/Solo.out/GeneFull/raw/matrix.mtx</pre>
 (Gene: 3 reads mapped; GeneFull: 6 reads mapped)
 (Gene: reads exon1,exon2,exon1exon2 mapped; GeneFull: all but exonoverlapintron mapped)
 
+### Run STAR Velocyto
+
+<pre>$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene Velocyto --soloCBwhitelist None --outFileNamePrefix $out_dir/starv/ --soloCellFilter None --readFilesIn $out_dir/reads.fq $out_dir/reads_bc_umi.fq
+cat $out_dir/starv/Solo.out/Velocyto/raw/spliced.mtx
+cat $out_dir/starv/Solo.out/Velocyto/raw/unspliced.mtx
+cat $out_dir/starv/Solo.out/Velocyto/raw/ambiguous.mtx</pre>
+
