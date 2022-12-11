@@ -375,3 +375,34 @@ $af quant --resolution cr-like -t $n_threads -i $out_dir/salmon_splici_ambiguous
 cat $out_dir/salmon_splici_ambiguous/quant/alevin/quants_mat.mtx</pre>
 
 The UMI AAAAAATTTTTT, which is associated with the two reads: exon1 and intron, will be classified as "ambiguous". The read associated with exonoverlapintron will also be classified as "ambiguous". The remaining 4 reads are either spliced (exon2 and exon1exon2) or unspliced (exon1intron and intronexon2).
+
+### Run STAR
+
+<pre>$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star/ --soloCellFilter None --readFilesIn $out_dir/reads.fq $out_dir/reads_bc_umi.fq
+cat $out_dir/star/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star1/ --soloCellFilter None --readFilesIn <(head -4 $out_dir/reads.fq) <(head -4 $out_dir/reads_bc_umi.fq)
+cat $out_dir/star1/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star1/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star2/ --soloCellFilter None --readFilesIn <(head -8 $out_dir/reads.fq|tail -4) <(head -8 $out_dir/reads_bc_umi.fq|tail -4)
+cat $out_dir/star2/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star2/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star3/ --soloCellFilter None --readFilesIn <(head -12 $out_dir/reads.fq|tail -4) <(head -12 $out_dir/reads_bc_umi.fq|tail -4)
+cat $out_dir/star3/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star3/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star4/ --soloCellFilter None --readFilesIn <(head -16 $out_dir/reads.fq|tail -4) <(head -16 $out_dir/reads_bc_umi.fq|tail -4)
+cat $out_dir/star4/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star4/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star5/ --soloCellFilter None --readFilesIn <(head -20 $out_dir/reads.fq|tail -4) <(head -20 $out_dir/reads_bc_umi.fq|tail -4)
+cat $out_dir/star5/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star5/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star6/ --soloCellFilter None --readFilesIn <(head -24 $out_dir/reads.fq|tail -4) <(head -24 $out_dir/reads_bc_umi.fq|tail -4)
+cat $out_dir/star6/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star6/Solo.out/GeneFull/raw/matrix.mtx
+$star --genomeDir $star_index --runThreadN $n_threads --soloUMIlen 12 --limitIObufferSize 50000000 50000000 --soloType CB_UMI_Simple --outSAMtype SAM --soloUMIdedup NoDedup --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --soloFeatures Gene GeneFull --soloCBwhitelist None --outFileNamePrefix $out_dir/star7/ --soloCellFilter None --readFilesIn <(head -28 $out_dir/reads.fq|tail -4) <(head -28 $out_dir/reads_bc_umi.fq|tail -4)
+cat $out_dir/star7/Solo.out/Gene/raw/matrix.mtx
+cat $out_dir/star7/Solo.out/GeneFull/raw/matrix.mtx</pre>
+
+(Gene: 3 reads mapped; GeneFull: 6 reads mapped)
+(Gene: reads exon1,exon2,exon1exon2 mapped; GeneFull: all but exonoverlapintron mapped)
+
