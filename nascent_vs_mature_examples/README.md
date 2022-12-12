@@ -404,6 +404,7 @@ cat $out_dir/star7/Solo.out/Gene/raw/matrix.mtx
 cat $out_dir/star7/Solo.out/GeneFull/raw/matrix.mtx</pre>
 
 (Gene: 3 reads mapped; GeneFull: 6 reads mapped) (Note: The last read [read 7] isn't mapped because STAR doesn't like the UMI: CCCCCCCCCCCC; otherwise it should be mapped in both Gene and GeneFull; giving it different UMI causes it to be mapped*)
+
 (Gene: reads exon1,exon2,exon1exon2,exonoverlapintron* mapped; GeneFull: all including exonoverlapintron* mapped)
 
 ### Run STAR Velocyto
@@ -413,4 +414,4 @@ cat $out_dir/starv/Solo.out/Velocyto/raw/spliced.mtx
 cat $out_dir/starv/Solo.out/Velocyto/raw/unspliced.mtx
 cat $out_dir/starv/Solo.out/Velocyto/raw/ambiguous.mtx</pre>
 
-(3 spliced, 3 unspliced, 1 ambiguous) (Note: We edited the last UMI)
+(3 spliced, 3 unspliced, 1 ambiguous) (Note: We edited the last UMI*)
