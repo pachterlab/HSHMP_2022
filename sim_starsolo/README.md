@@ -2,9 +2,7 @@
 
 On tolva, everything is downloaded into: /home/dsullivan/benchmarking/starsolo
 
-Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here.
-
-## Download and run simulation (Sep. 27, 2022)
+## Download and run simulation (March 28, 2023)
 
 <pre>git clone https://github.com/dobinlab/STARsoloManuscript
 cd STARsoloManuscript
@@ -46,6 +44,10 @@ rm -f ./genomes/human_CR_3.0.0/genome_transcripts*
 
 make -C sims
 </pre>
+
+## Makefiles
+
+Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here.
 
 # Create symlinks to executables
 
