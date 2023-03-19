@@ -1,6 +1,6 @@
 # STARSolo simulation
 
-On tolva, everything is downloaded into: /home/dsullivan/benchmarking/starsolo
+On tolva, everything is downloaded into: /home/dsullivan/HSHMP_2022/sim_starsolo/
 
 ## Download and run simulation (March 28, 2023)
 
@@ -43,20 +43,18 @@ make -C data
 rm -f ./genomes/human_CR_3.0.0/genome_transcripts*
 
 make -C sims
+cd ..
 </pre>
-
-## Makefiles
-
-Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here.
 
 # Create symlinks to executables
 
-<pre>ln -s /home/dsullivan/kallisto-bf/build/src/kallisto exe/kallisto_0.49.0
-ln -s /home/dsullivan/bustools/build/src/bustools exe/bustools_0.41.1
-ln -s /home/kristjan/cellranger/cellranger-3.1.0/cellranger exe/CellRanger_3.1.0
-ln -s /home/kristjan/cellranger/cellranger-7.0.1/cellranger exe/CellRanger_7.0.1
-ln -s /home/dsullivan/salmon-1.9.0_linux_x86_64/bin/salmon exe/salmon_1.9.0
-ln -s /home/dsullivan/.cargo/bin/alevin-fry exe/alevin-fry_0.8.0</pre>
+<pre>cd STARsoloManuscript
+ln -s $(pwd)/../../kallisto-D/build/src/kallisto exe/kallisto_0.49.0
+ln -s $(pwd)/../../bustools/build/src/bustools exe/bustools_0.43.0
+ln -s $(pwd)/../../cellranger/cellranger-3.1.0/cellranger exe/CellRanger_3.1.0
+ln -s $(pwd)/../../cellranger/cellranger-7.0.1/cellranger exe/CellRanger_7.0.1
+ln -s $(pwd)/../../salmon-latest_linux_x86_64/bin/salmon exe/salmon_1.10.0
+ln -s $(pwd)/../../.cargo/bin/alevin-fry exe/alevin-fry_0.8.1</pre>
 
 # Create indices
 
@@ -70,20 +68,19 @@ n_threads="20"</pre>
 
 <pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_1"
 mkdir -p $out_dir
-kb ref -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
-exe/kallisto_0.49.0 index -i $out_dir/index.idx $out_dir/f1 # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!
+kb ref --d-list="" -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
-### off-list (in-progress)
+### D-list (cDNA + genome FASTA D-list)
 
 <pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
 mkdir -p $out_dir
-exe/kallisto_0.49.0 index -t 4 -b $genome_file -i $out_dir/index.idx genomes/index/kallisto_0.49.0/$genome_name/standard_1/f1
-# ^TODO: REPLACE ABOVE WITH A KB REF COMMAND ONCE WE ALLOW OFFLIST IN KB REF
-cp genomes/index/kallisto_0.49.0/$genome_name/standard_1/g $out_dir/g
-# ^TODO: REPLACE ABOVE WITH A KB REF COMMAND ONCE WE ALLOW OFFLIST IN KB REF
+kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
+### Lamanno ref
+
+TODO
 
 ## STAR
 
@@ -166,6 +163,11 @@ mv $genome_name $out_dir/cellranger7/$genome_name</pre>
 <pre>exe/CellRanger_3.1.0 mkref --genes=$gtf_file --fasta=$fasta_file --genome=$genome_name --nthreads=$n_threads
 mv $genome_name $out_dir/cellranger3/$genome_name</pre>
 
+
+
+# Makefiles
+
+Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here.
 
 # Run simulations
 
