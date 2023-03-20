@@ -80,7 +80,25 @@ kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/
 
 ### Lamanno ref
 
-TODO
+<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/lamanno_1"
+mkdir -p $out_dir
+kb ref -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow lamanno --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+</pre>
+
+### Lamanno ref D-list (genome FASTA D-list)
+
+<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/lamanno_offlist_1"
+mkdir -p $out_dir
+kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow lamanno --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1</pre>
+
+### Nucleus ref (cDNA D-list)
+
+<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/nucleus_1"
+mkdir -p $out_dir
+kb ref -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+</pre>
+
+
 
 ## STAR
 
