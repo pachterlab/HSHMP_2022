@@ -153,9 +153,11 @@ echo "$runCommand" > $out_dir/splici_sparse/log150 && $runCommand &>> $out_dir/s
 Cell ranger apparently always deposits the index into the directory from which it is run. Hence, we generate the indices and then `mv` them to the desired location.
 <pre>out_dir="genomes/index"
 exe/CellRanger_7.0.1 mkref --genes=$gtf_file --fasta=$genome_file --genome=$genome_name --nthreads=$n_threads
-mv $genome_name $out_dir/cellranger7/$genome_name</pre>
+mkdir -p $out_dir/cellranger7/$genome_name
+mv $genome_name $out_dir/cellranger7/$genome_name
 
-<pre>exe/CellRanger_3.1.0 mkref --genes=$gtf_file --fasta=$genome_file --genome=$genome_name --nthreads=$n_threads
+exe/CellRanger_3.1.0 mkref --genes=$gtf_file --fasta=$genome_file --genome=$genome_name --nthreads=$n_threads
+mkdir -p $out_dir/cellranger3/$genome_name
 mv $genome_name $out_dir/cellranger3/$genome_name</pre>
 
 
