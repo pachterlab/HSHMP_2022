@@ -122,37 +122,17 @@ exe/STAR_2.7.9a --runMode genomeGenerate --runThreadN $n_threads --genomeDir $ou
 
 ## salmon
 
-### Full Decoy (TODO: in-progress)
-
-<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
-mkdir -p $out_dir/decoyFull
-awk '$1~/^>/ {print substr($1,2)}' $genome_file > $out_dir/decoyFull/decoys.txt
-cat $transcripts_file $genome_file > $out_dir/decoyFull/gentrome.fa
-runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $out_dir/decoyFull/gentrome.fa -d $out_dir/decoyFull/decoys.txt --gencode -i $out_dir/decoyFull/index -p $n_threads"
-echo "$runCommand" > $out_dir/decoyFull/log && $runCommand &>> $out_dir/decoyFull/log</pre>
-
-### standard (dense+sparse) (TODO: in-progress)
-
-<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
-mkdir -p $out_dir/standard
-runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard/index -p $n_threads"
-echo "$runCommand" > $out_dir/standard/log && $runCommand &>> $out_dir/standard/log
-# Make sparse variant:
-mkdir -p $out_dir/standard_sparse
-runCommand="exe/salmon_1.9.0 index --keepDuplicates -t $transcripts_file -i $out_dir/standard_sparse/index -p $n_threads --sparse"
-echo "$runCommand" > $out_dir/standard_sparse/log && $runCommand &>> $out_dir/standard_sparse/log</pre>
-
 ### splici (dense+sparse; for read length 91)
 
-<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
+<pre>out_dir="genomes/index/salmon_1.10.0/$genome_name"
 mkdir -p $out_dir/splici
 pyroe make-splici "$genome_file" "$gtf_file" 91 $out_dir/splici/salmon_splici_91 --flank-trim-length 5 --filename-prefix splici
-runCommand="exe/salmon_1.9.0 index -t $out_dir/splici/salmon_splici_91/splici_fl86.fa --gencode -i $out_dir/splici/index -p $n_threads"
+runCommand="exe/salmon_1.10.0 index -t $out_dir/splici/salmon_splici_91/splici_fl86.fa --gencode -i $out_dir/splici/index -p $n_threads"
 echo "$runCommand" > $out_dir/splici/log && $runCommand &>> $out_dir/splici/log
 # Make sparse variant:
 mkdir -p $out_dir/splici_sparse
 cp -R $out_dir/splici/salmon_splici_91/ $out_dir/splici_sparse/salmon_splici_91/
-runCommand="exe/salmon_1.9.0 index -t $out_dir/splici_sparse/salmon_splici_91/splici_fl86.fa --gencode -i $out_dir/splici_sparse/index -p $n_threads --sparse"
+runCommand="exe/salmon_1.10.0 index -t $out_dir/splici_sparse/salmon_splici_91/splici_fl86.fa --gencode -i $out_dir/splici_sparse/index -p $n_threads --sparse"
 echo "$runCommand" > $out_dir/splici_sparse/log && $runCommand &>> $out_dir/splici_sparse/log</pre>
 
 #### Additional splici (for read length 150)
