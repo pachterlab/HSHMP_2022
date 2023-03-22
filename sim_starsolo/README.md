@@ -137,32 +137,17 @@ echo "$runCommand" > $out_dir/splici_sparse/log && $runCommand &>> $out_dir/spli
 
 #### Additional splici (for read length 150)
 
-<pre>out_dir="genomes/index/salmon_1.9.0/$genome_name"
+<pre>out_dir="genomes/index/salmon_1.10.0/$genome_name"
 mkdir -p $out_dir/splici
 pyroe make-splici "$genome_file" "$gtf_file" 150 $out_dir/splici/salmon_splici_150 --flank-trim-length 5 --filename-prefix splici
-runCommand="exe/salmon_1.9.0 index -t $out_dir/splici/salmon_splici_150/splici_fl145.fa --gencode -i $out_dir/splici/i150 -p $n_threads"
+runCommand="exe/salmon_1.10.0 index -t $out_dir/splici/salmon_splici_150/splici_fl145.fa --gencode -i $out_dir/splici/i150 -p $n_threads"
 echo "$runCommand" > $out_dir/splici/log150 && $runCommand &>> $out_dir/splici/log150
 # Make sparse variant:
 mkdir -p $out_dir/splici_sparse
 cp -R $out_dir/splici/salmon_splici_150/ $out_dir/splici_sparse/salmon_splici_150/
-runCommand="exe/salmon_1.9.0 index -t $out_dir/splici_sparse/salmon_splici_150/splici_fl145.fa --gencode -i $out_dir/splici_sparse/i150 -p $n_threads --sparse"
+runCommand="exe/salmon_1.10.0 index -t $out_dir/splici_sparse/salmon_splici_150/splici_fl145.fa --gencode -i $out_dir/splici_sparse/i150 -p $n_threads --sparse"
 echo "$runCommand" > $out_dir/splici_sparse/log150 && $runCommand &>> $out_dir/splici_sparse/log150</pre>
 
-#### kallisto splici
-
-##### 91 bp
-
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_splici_1"
-mkdir -p $out_dir
-splici_fasta="genomes/index/salmon_1.9.0/$genome_name/splici/salmon_splici_91/splici_fl86.fa"
-exe/kallisto_0.49.0 index -i $out_dir/index.idx -t $n_threads $splici_fasta # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!</pre>
-
-##### 150 bp
-
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_splici150_1"
-mkdir -p $out_dir
-splici_fasta="genomes/index/salmon_1.9.0/$genome_name/splici/salmon_splici_150/splici_fl145.fa"
-exe/kallisto_0.49.0 index -i $out_dir/index.idx -t $n_threads $splici_fasta # TODO: DELETE THIS ONCE WE FIGURE OUT WHY TF KB ISN'T WORKING!</pre>
 
 ## Cell Ranger
 Cell ranger apparently always deposits the index into the directory from which it is run. Hence, we generate the indices and then `mv` them to the desired location.
