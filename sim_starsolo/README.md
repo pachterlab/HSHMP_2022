@@ -164,15 +164,7 @@ mv $genome_name $out_dir/cellranger3/$genome_name</pre>
 
 # Makefiles
 
-### Replace
-
-Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here.
-
-### Editing
-
-You should then edit Mf.common such that the third line (that beginning with dd:=) is replaced with your own STARSoloManuscript directory (which should currently be your current working directory). It can be done by sed via:
-
-<pre>sed -i '3s/.*/dd:='$(pwd|sed 's/\//\\\//g')'\//' Mf.common</pre>
+Replace the Makefile and Mf* files in the STARsoloManuscript directory with the ones here (make sure Mf.common dd:= references the correct path to the STARSoloManuscript directory).
 
 # Run simulations
 
