@@ -31,7 +31,7 @@ cmake .. -DZLIBNG=ON && make</pre>
 
 ### Bustools
 
-commit 59fcc9eff5bc7741893aa46ae801f943b8d5ff87
+commit f5e9de4daa2e70c83b97d3808f89720c40905237
 
 <pre>cd $main_path
 rm -rf bustools
@@ -41,7 +41,7 @@ cmake .. && make</pre>
 
 ### kb-python
 
-commit 53e1b821da856cd1f053b340619508114b130d6b
+commit 73c62d77e894a39f2fd99370878ce895984186b8
 
 <pre>yes|pip uninstall kb-python
 pip install git+https://github.com/pachterlab/kb_python@dlist</pre>
