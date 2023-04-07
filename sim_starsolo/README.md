@@ -46,6 +46,17 @@ make -C sims
 cd ..
 </pre>
 
+## Download simulations that were already run
+
+<pre>curl -s https://api.github.com/repos/pachterlab/HSHMP_2022/releases/latest \
+| grep "browser_download_url" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
+cat STARsoloManuscript_* > STARsoloManuscript.tar.gz
+tar -xzvf STARsoloManuscript.tar.gz
+</pre>
+
 # Create symlinks to executables
 
 <pre>cd STARsoloManuscript
