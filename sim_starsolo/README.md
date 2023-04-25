@@ -60,7 +60,7 @@ tar -xzvf STARsoloManuscript.tar.gz
 # Create symlinks to executables
 
 <pre>cd STARsoloManuscript
-ln -s $(pwd)/../../kallisto-D/build/src/kallisto exe/kallisto_0.49.0
+ln -s $(pwd)/../../kallisto-D/build/src/kallisto exe/kallisto_0.50.0
 ln -s $(pwd)/../../bustools/build/src/bustools exe/bustools_0.43.0
 ln -s $(pwd)/../../cellranger/cellranger-3.1.0/cellranger exe/CellRanger_3.1.0
 ln -s $(pwd)/../../cellranger/cellranger-7.0.1/cellranger exe/CellRanger_7.0.1
@@ -77,50 +77,50 @@ n_threads="20"</pre>
 
 ## kallisto (kb-python)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/standard_1"
 mkdir -p $out_dir
-kb ref --d-list="" -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+kb ref --d-list="" -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
 ### D-list (cDNA + genome FASTA D-list)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/standard_offlist_1"
 mkdir -p $out_dir
-kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow standard --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
 ### Lamanno ref
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/lamanno_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/lamanno_1"
 mkdir -p $out_dir
-kb ref -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow lamanno --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+kb ref -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow lamanno --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
 ### Lamanno ref D-list (genome FASTA D-list)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/lamanno_offlist_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/lamanno_offlist_1"
 mkdir -p $out_dir
-kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow lamanno --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1</pre>
+kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow lamanno --overwrite -f1 $out_dir/f1 -f2 $out_dir/f2 -c1 $out_dir/c1 -c2 $out_dir/c2 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1</pre>
 
 ### Nucleus ref (no D-list)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/nucleus_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/nucleus_1"
 mkdir -p $out_dir
-kb ref --d-list="" -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+kb ref --d-list="" -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
 ### Nucleus ref (cDNA D-list)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/nucleus_cdnaofflist_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/nucleus_cdnaofflist_1"
 mkdir -p $out_dir
-kb ref -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+kb ref -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
 ### Nucleus ref (genome D-list)
 
-<pre>out_dir="genomes/index/kallisto_0.49.0/$genome_name/nucleus_offlist_1"
+<pre>out_dir="genomes/index/kallisto_0.50.0/$genome_name/nucleus_offlist_1"
 mkdir -p $out_dir
-kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.49.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
+kb ref --d-list=$genome_file -t $n_threads -i $out_dir/index.idx --kallisto exe/kallisto_0.50.0 --workflow nucleus --overwrite -f1 $out_dir/f1 -g $out_dir/g $genome_file $gtf_file > $out_dir/log.txt 2>&1
 </pre>
 
 ## STAR
@@ -199,13 +199,13 @@ Run python script with 7 arguments: 1) truth matrix, 2) truth genes list, 3) tru
 
 ## kallisto comparison
 
-<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.49.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.49.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.49.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_sim_vs_kallisto.txt
-python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.49.0/human_CR_3.0.0/standard_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.49.0/human_CR_3.0.0/standard_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.49.0/human_CR_3.0.0/standard_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_mult_sim_vs_kallisto.txt</pre>
+<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.50.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.50.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.50.0/human_CR_3.0.0/standard_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_sim_vs_kallisto.txt
+python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.50.0/human_CR_3.0.0/standard_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.50.0/human_CR_3.0.0/standard_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.50.0/human_CR_3.0.0/standard_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_mult_sim_vs_kallisto.txt</pre>
 
 ### offlist
 
-<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.49.0/human_CR_3.0.0/standard_offlist_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.49.0/human_CR_3.0.0/standard_offlist_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.49.0/human_CR_3.0.0/standard_offlist_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_sim_vs_kallisto_offlist.txt
-python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.49.0/human_CR_3.0.0/standard_offlist_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.49.0/human_CR_3.0.0/standard_offlist_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.49.0/human_CR_3.0.0/standard_offlist_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_mult_sim_vs_kallisto_offlist.txt</pre>
+<pre>python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.50.0/human_CR_3.0.0/standard_offlist_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.50.0/human_CR_3.0.0/standard_offlist_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.50.0/human_CR_3.0.0/standard_offlist_1/default/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneNo/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_sim_vs_kallisto_offlist.txt
+python3 comparisons.py samples/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/truth.mtx genomes/human_CR_3.0.0/genes.tsv data/whitelists/10Xv3 count/kallisto_0.50.0/human_CR_3.0.0/standard_offlist_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.mtx count/kallisto_0.50.0/human_CR_3.0.0/standard_offlist_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.genes.txt count/kallisto_0.50.0/human_CR_3.0.0/standard_offlist_1/mult/10X/3/pbmc_5k_sims_human_CR_3.0.0_MultiGeneYes/20/run1/counts_unfiltered/cells_x_genes.barcodes.txt results_mult_sim_vs_kallisto_offlist.txt</pre>
 
 ## salmon comparison
 
@@ -316,11 +316,11 @@ Get genes that are false positives in kallisto but not STAR:
 
 Run kallisto mapping on all reads associated with the given barcode, capture all reads that have a transcript associated with the genes that are false positive in kallisto but not STAR, and output a file of read numbers (zero-indexed) where those problematic reads occur.
 
-<pre>kallisto="exe/kallisto_0.49.0"
+<pre>kallisto="exe/kallisto_0.50.0"
 bustools="exe/bustools_0.41.1"
 genome_name="human_CR_3.0.0"
-index_dir="genomes/index/kallisto_0.49.0/$genome_name/standard_offlist_1"
-cdna_file="genomes/index/kallisto_0.49.0/$genome_name/standard_1/f1"
+index_dir="genomes/index/kallisto_0.50.0/$genome_name/standard_offlist_1"
+cdna_file="genomes/index/kallisto_0.50.0/$genome_name/standard_1/f1"
 index_name="$index_dir/index.idx"
 t2g_file="$index_dir/g"
 $kallisto bus -n -x 10xv3 -i "$index_name" -o $out_dir/quant/ "$out_dir"/"$barcode"_r1.fq "$out_dir"/"$barcode"_r2.fq
