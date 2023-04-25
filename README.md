@@ -21,7 +21,7 @@ salmon="$main_path/salmon-latest_linux_x86_64/bin/salmon"
 
 ### Kallisto-D
 
-commit ce5cdc1ee3cc7e20b9ceafd457f52f7a73a2b2c1
+commit 0c80683b37b651c93d67fc8cf02658d4ab2cd2a3
 
 <pre>cd $main_path
 rm -rf kallisto-D
@@ -41,11 +41,11 @@ cmake .. && make</pre>
 
 ### kb-python
 
-commit ad80f6cd42947a9384b79a5859ca268b326a2bcc
+commit b0700bb78625bc82918396d86bcd538f8d9c838c
 
-<pre>mkdir -p kb-python
+<pre>cd $main_path
 yes|pip uninstall kb-python
-pip install --target=./kb-python/ git+https://github.com/pachterlab/kb_python@dlist</pre>
+pip install --user git+https://github.com/pachterlab/kb_python@dlist</pre>
 
 ### CellRanger
 
