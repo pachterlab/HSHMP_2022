@@ -21,7 +21,7 @@ salmon="$main_path/salmon-latest_linux_x86_64/bin/salmon"
 
 ### Kallisto-D
 
-commit dfd10bb57cb0182ae9802c8665373290b28155d2
+commit ce5cdc1ee3cc7e20b9ceafd457f52f7a73a2b2c1
 
 <pre>cd $main_path
 rm -rf kallisto-D
@@ -31,7 +31,7 @@ cmake .. -DZLIBNG=ON && make</pre>
 
 ### Bustools
 
-commit f5e9de4daa2e70c83b97d3808f89720c40905237
+commit f4fd12a5205772eb7e62a04a7ebd8b40835805b8
 
 <pre>cd $main_path
 rm -rf bustools
@@ -41,10 +41,11 @@ cmake .. && make</pre>
 
 ### kb-python
 
-commit 73c62d77e894a39f2fd99370878ce895984186b8
+commit ad80f6cd42947a9384b79a5859ca268b326a2bcc
 
-<pre>yes|pip uninstall kb-python
-pip install git+https://github.com/pachterlab/kb_python@dlist</pre>
+<pre>mkdir -p kb-python
+yes|pip uninstall kb-python
+pip install --target=./kb-python/ git+https://github.com/pachterlab/kb_python@dlist</pre>
 
 ### CellRanger
 
